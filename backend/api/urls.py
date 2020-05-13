@@ -10,12 +10,11 @@ from rest_framework_simplejwt.views import (
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
-router.register(r'images', views.ImageViewSet)
-
+router.register(r'images', views.ImageViewSet, basename='images')
 
 urlpatterns = [
-    path('', include(router.urls)),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('', include(router.urls)),
 ]
