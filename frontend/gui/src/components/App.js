@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import Layout from "./containers/Layout";
-import BaseRouter from "./routes";
+import BaseRouter from "../routes";
+import Layout from './Layout';
 
 function App() {
     return (

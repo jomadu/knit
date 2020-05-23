@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import BaseRouter from '../routes';
 
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
@@ -24,7 +24,7 @@ const ImageDetail = (props) => {
 const ImageListItem = (props) => {
     console.log(props);
     return (
-        <ListItem button component={Link} to={`/${props.image.id}`}>
+        <ListItem button component={BaseRouter} to={`/images/${props.image.id}`}>
             <ListItemIcon>
                 <PhotoIcon />
             </ListItemIcon>

@@ -9,6 +9,5 @@ router.register(r'images', views.ImageViewSet, basename='images')
 
 urlpatterns = [
     path('schema/', get_schema_view()),
-    path('users/', include('users.urls')),
     path('', include(router.urls)),
 ]

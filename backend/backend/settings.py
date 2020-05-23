@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 
     # Knit-ML apps
     'api',
-    'users'
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -136,7 +136,7 @@ STATIC_URL = '/static/'
 
 # SITE_ID = 1 # for rest auth registration
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'account.Account'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -162,6 +162,11 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http:\/\/(localhost|127\.0\.0\.1):3000.*'
 ]
+
+DJOSER = {
+    'TOKEN_MODEL': None,
+    'USER_CREATE_PASSWORD_RETYPE': True
+}
