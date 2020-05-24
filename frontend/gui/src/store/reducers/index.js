@@ -8,7 +8,6 @@ const initialState = {
     },
     loading: false,
     error: null,
-    isAuthenticated: false
 };
 
 const authStart = (state, action) => {
@@ -29,14 +28,12 @@ const authSuccess = (state, action) => {
         },
         loading: false,
         error: null,
-        isAuthenticated: true
     });
 };
 const authFail = (state, action) => {
     return updateObject(state, {
         loading: false,
         error: action.payload.error,
-        isAuthenticated: false
     });
 };
 
@@ -51,7 +48,6 @@ const authSignOut = (state, action) => {
         },
         loading: false,
         error: null,
-        isAuthenticated: false
     });
 };
 

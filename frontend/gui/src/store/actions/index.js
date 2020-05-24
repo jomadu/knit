@@ -41,7 +41,14 @@ export const authSignUp = (email, username, password, re_password) => {
             email: email,
             username: username,
             password: password,
-            re_password: re_password
-        }
-    }
-}
+            re_password: re_password,
+        },
+    };
+};
+
+export const authSignOut = () => {
+    return {
+        type: ActionTypes.AUTH_SIGN_OUT,
+        payload: null,
+    };
+};
