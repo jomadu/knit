@@ -1,8 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import ImageDetailContainer, { ImageListContainer } from "./containers/Image";
-import SignInContainer from "./containers/SignIn";
-import SignUpContainer from "./containers/SignUp";
+import SignInFormContainer from "./containers/SignIn";
+import SignUpFormContainer from "./containers/SignUp";
 
 const BaseRouter = () => {
     return (
@@ -13,8 +13,8 @@ const BaseRouter = () => {
                 path="/images/:imageID"
                 component={ImageDetailContainer}
             />
-            <Route exact path="/signin" component={SignInContainer} />
-            <Route exact path="/signup" component={SignUpContainer} />
+            <Route exact path="/signin" component={SignInFormContainer} />
+            <Route exact path="/signup" component={SignUpFormContainer} />
         </div>
     );
 };

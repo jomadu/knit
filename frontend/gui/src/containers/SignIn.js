@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authSignIn } from "../store/actions/index";
-import { SignInForm } from "../components/Form";
+import SignInForm from "../components/Form/SignIn";
 
 const ConnectedSignInFormContainer = (props) => {
     return <SignInForm onSignIn={props.authSignIn} />;

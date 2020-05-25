@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authSignUp } from "../store/actions/index";
-import { SignUpForm } from "../components/Form";
+import SignUpForm from "../components/Form/SignUp";
 
-const ConnectedSignUpContainer = (props) => {
+const ConnectedSignUpFormContainer = (props) => {
     return <SignUpForm onSignUp={props.authSignUp} />;
 };
 
@@ -14,9 +14,9 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const SignUpContainer = connect(
+const SignUpFormContainer = connect(
     null,
     mapDispatchToProps
-)(ConnectedSignUpContainer);
+)(ConnectedSignUpFormContainer);
 
-export default SignUpContainer;
+export default SignUpFormContainer;
