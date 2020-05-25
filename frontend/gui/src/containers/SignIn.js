@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authSignIn } from "../store/actions/index";
-import SignIn from "../components/SignIn";
+import { SignInForm } from "../components/Form";
 
-const ConnectedSignInContainer = (props) => {
-    return <SignIn onSignIn={props.authSignIn} />;
+const ConnectedSignInFormContainer = (props) => {
+    return <SignInForm onSignIn={props.authSignIn} />;
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -13,9 +13,9 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const SignInContainer = connect(
+const SignInFormContainer = connect(
     null,
     mapDispatchToProps
-)(ConnectedSignInContainer);
+)(ConnectedSignInFormContainer);
 
-export default SignInContainer;
+export default SignInFormContainer;

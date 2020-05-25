@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import BaseRouter from "../routes";
-import Layout from './Layout';
+import Layout from "./Layout";
 
-function App() {
+const App = () => {
     return (
         <div className="App">
             <Router>
@@ -13,6 +13,6 @@ function App() {
             </Router>
         </div>
     );
-}
+};
 
 export default App;

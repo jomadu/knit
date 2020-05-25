@@ -1,5 +1,5 @@
 import React from "react";
-import BaseRouter from '../routes';
+import BaseRouter from "../routes";
 
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
@@ -9,34 +9,28 @@ import ListItemText from "@material-ui/core/ListItemText";
 import PhotoIcon from "@material-ui/icons/Photo";
 import Typography from "@material-ui/core/Typography";
 
-
-const ImageDetail = (props) => {
+const ImageDetail = ({ image }) => {
     return (
         <Paper elevation={2}>
-            <Typography variant='h2'>{props.image.title}</Typography>
-            <Typography variant='subtitle1'>{props.image.description}</Typography>
-            <Typography>{props.image.owner}</Typography>
-            <Typography>{props.image.created}</Typography>
+            <Typography variant="h2">{image.title}</Typography>
+            <Typography variant="subtitle1">
+                {image.description}
+            </Typography>
+            <Typography>{image.owner}</Typography>
+            <Typography>{image.created}</Typography>
         </Paper>
     );
 };
-
-const ImageListItem = (props) => {
-    console.log(props);
-    return (
-        <ListItem button component={BaseRouter} to={`/images/${props.image.id}`}>
-            <ListItemIcon>
-                <PhotoIcon />
-            </ListItemIcon>
-            <ListItemText primary={props.image.title}/>
-        </ListItem>
-    );
-};
-
-export const ImageList = (props) => {
-    const images = props.images;
+export const ImageList = ({images}) => {
     const listItems = images.map((image) => {
-        return <ImageListItem image={image} key={image.id} />;
+        return (
+            <ListItem button component={BaseRouter} to={`/images/${image.id}`}>
+                <ListItemIcon>
+                    <PhotoIcon />
+                </ListItemIcon>
+                <ListItemText primary={image.title} />
+            </ListItem>
+        );
     });
     return <List component="nav">{listItems}</List>;
 };

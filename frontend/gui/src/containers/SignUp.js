@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authSignUp } from "../store/actions/index";
-import SignUp from "../components/SignUp";
+import { SignUpForm } from "../components/Form";
 
 const ConnectedSignUpContainer = (props) => {
-    return <SignUp onSignUp={props.authSignUp} />;
+    return <SignUpForm onSignUp={props.authSignUp} />;
 };
 
 const mapDispatchToProps = (dispatch) => {
