@@ -7,13 +7,13 @@ import isAuthenticated from "../selectors/index";
 
 const SignInFormContainer = (props) => {
     if (props.isAuthenticated)
-        return <Redirect to={`/account/${props.username}`} />;
+        return <Redirect to={`/users/${props.username}`} />;
     return <SignInForm onSignIn={props.handleSignIn} />;
 };
 
 const mapStateToProps = (state) => ({
     isAuthenticated: isAuthenticated(state),
-    username: state.user === null ? "" : state.user.username,
+    username: state.user && state.user.username  ? state.user.username : "",
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,11 +1,20 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { signUp } from "../store/reducers/auth";
 import SignUpForm from "../components/Form/SignUp";
+import isAuthenticated from "../selectors/index";
 
 const SignUpFormContainer = (props) => {
+    if (props.isAuthenticated)
+        return <Redirect to={`/users/${props.username}`} />;
     return <SignUpForm onSignUp={props.handleSignUp} />;
 };
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: isAuthenticated(state),
+    username: state.user && state.user.username ? state.user.username : "",
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -14,4 +23,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(SignUpFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpFormContainer);

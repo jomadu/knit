@@ -25,7 +25,6 @@ export const AccountContainer = (props) => {
         accountInfo = (
             <div>
                 <Typography variant="h1">{props.user.username}</Typography>
-                
                 <Typography variant="body1">Email: {props.user.email}</Typography>
                 <Typography variant="body1">ID: {props.user.id}</Typography>
             </div>

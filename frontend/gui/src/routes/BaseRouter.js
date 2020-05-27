@@ -27,7 +27,7 @@ const BaseRouter = () => {
             <AuthRoute
                 type={RouteTypes.ROUTE_PROTECTED}
                 exact
-                path="/account/:accountUsername"
+                path="/users/:accountUsername"
                 component={AccountContainer}
             />
         </div>
