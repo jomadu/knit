@@ -6,7 +6,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import InboxIcon from "@material-ui/icons/Inbox";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import CollectionsIcon from "@material-ui/icons/Collections";
 
 import { isAuthenticated } from "../selectors/index";
 import { signOut } from "../store/reducers/auth";
@@ -27,7 +29,7 @@ const ConnectedNavDrawerContainer = (props) => {
         navItems.push(
             <ListItem button component={Link} to={`/account/${props.username}`} key={`Account`}>
                 <ListItemIcon>
-                    <InboxIcon />
+                    <AccountCircleIcon />
                 </ListItemIcon>
                 <ListItemText primary={`${props.username}`} />
             </ListItem>
@@ -35,7 +37,7 @@ const ConnectedNavDrawerContainer = (props) => {
         navItems.push(
             <ListItem button onClick={props.handleSignOut} key="Sign Out">
                 <ListItemIcon>
-                    <InboxIcon />
+                    <ExitToAppIcon />
                 </ListItemIcon>
                 <ListItemText primary="Sign Out" />
             </ListItem>
@@ -44,7 +46,7 @@ const ConnectedNavDrawerContainer = (props) => {
         navItems.push(
             <ListItem button component={Link} to="/signin" key="Sign In">
                 <ListItemIcon>
-                    <InboxIcon />
+                    <AccountCircleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Sign In" />
             </ListItem>
@@ -53,7 +55,7 @@ const ConnectedNavDrawerContainer = (props) => {
     navItems.push(
         <ListItem button component={Link} to="/images" key="Images">
             <ListItemIcon>
-                <InboxIcon />
+                <CollectionsIcon />
             </ListItemIcon>
             <ListItemText primary="Images" />
         </ListItem>
