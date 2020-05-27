@@ -1,6 +1,7 @@
 import { takeEvery, call, put, all } from "redux-saga/effects";
 import { signIn, signUp, start, success, fail } from "../reducers/auth";
 import axios from "axios";
+import { backendEndpoints } from "../../routes/routes";
 
 function* watchSignIn() {
     yield takeEvery(signIn, signInWorker);
@@ -13,10 +14,7 @@ function* signInWorker(action) {
             action.payload.email,
             action.payload.password
         );
-        const userData = yield call(
-            getUser,
-            jwtData.access
-        );
+        const userData = yield call(getUser, jwtData.access);
         yield put(success(jwtData.access, jwtData.refresh, userData));
     } catch (e) {
         yield put(fail(e));
@@ -24,18 +22,20 @@ function* signInWorker(action) {
 }
 const getJWT = (email, password) => {
     return axios
-        .post("http://127.0.0.1:8000/auth/jwt/create/", {
+        .post(backendEndpoints.djoser.jwtCreate, {
             email: email,
             password: password,
         })
         .then((response) => response.data);
 };
 const getUser = (access) => {
-    return axios.get("http://127.0.0.1:8000/auth/users/me", {
-        headers: {
-            Authorization: "Bearer " + access
-        },
-    }).then((response) => response.data);
+    return axios
+        .get(backendEndpoints.djoser.user, {
+            headers: {
+                Authorization: "Bearer " + access,
+            },
+        })
+        .then((response) => response.data);
 };
 
 function* watchSignUp() {
@@ -56,10 +56,7 @@ function* signUpWorker(action) {
             action.payload.email,
             action.payload.password
         );
-        const userData = yield call(
-            getUser,
-            jwtData.access
-        );
+        const userData = yield call(getUser, jwtData.access);
         yield put(success(jwtData.access, jwtData.refresh, userData));
     } catch (e) {
         yield put(fail(e));
@@ -67,7 +64,7 @@ function* signUpWorker(action) {
 }
 const createUser = (email, username, password, re_password) => {
     return axios
-        .post("http://127.0.0.1:8000/auth/users/", {
+        .post(backendEndpoints.djoser.user, {
             email: email,
             username: username,
             password: password,

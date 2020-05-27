@@ -4,10 +4,12 @@ import { connect } from "react-redux";
 import { signUp } from "../store/reducers/auth";
 import SignUpForm from "../components/Form/SignUp";
 import isAuthenticated from "../selectors/index";
+import {reverse} from "named-urls";
+import {frontendEndpoints} from "../routes/routes";
 
 const SignUpFormContainer = (props) => {
     if (props.isAuthenticated)
-        return <Redirect to={`/users/${props.username}`} />;
+        return <Redirect to={reverse(frontendEndpoints.user, {username: props.username})} />;
     return <SignUpForm onSignUp={props.handleSignUp} />;
 };
 

@@ -4,10 +4,12 @@ import { Redirect } from "react-router-dom";
 import { signIn } from "../store/reducers/auth";
 import SignInForm from "../components/Form/SignIn";
 import isAuthenticated from "../selectors/index";
+import {reverse} from "named-urls";
+import {frontendEndpoints} from "../routes/routes";
 
 const SignInFormContainer = (props) => {
     if (props.isAuthenticated)
-        return <Redirect to={`/users/${props.username}`} />;
+        return <Redirect to={reverse(frontendEndpoints.user, {username: props.username})} />;
     return <SignInForm onSignIn={props.handleSignIn} />;
 };
 

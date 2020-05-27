@@ -1,5 +1,5 @@
 import React from "react";
-import BaseRouter from '../routes/AuthRoute';
+import { Router } from "react-router-dom";
 
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
@@ -9,22 +9,30 @@ import ListItemText from "@material-ui/core/ListItemText";
 import PhotoIcon from "@material-ui/icons/Photo";
 import Typography from "@material-ui/core/Typography";
 
+import { frontendEndpoints } from "../routes/routes";
+import { reverse } from "named-urls";
+
 const ImageDetail = ({ image }) => {
     return (
         <Paper elevation={2}>
             <Typography variant="h2">{image.title}</Typography>
-            <Typography variant="subtitle1">
-                {image.description}
-            </Typography>
+            <Typography variant="subtitle1">{image.description}</Typography>
             <Typography>{image.owner}</Typography>
             <Typography>{image.created}</Typography>
         </Paper>
     );
 };
-export const ImageList = ({images}) => {
+export const ImageList = ({ images }) => {
+    console.log(images)
     const listItems = images.map((image) => {
         return (
-            <ListItem button component={BaseRouter} to={`/images/${image.id}`}>
+            <ListItem
+                button
+                component={Router}
+                to={reverse(frontendEndpoints.imageDetail, {
+                    id: image.id,
+                })}
+            >
                 <ListItemIcon>
                     <PhotoIcon />
                 </ListItemIcon>

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ImageDetail, { ImageList } from "../components/Image";
+import { backendEndpoints } from "../routes/routes";
 
 export const ImageDetailContainer = (props) => {
     const [image, setImage] = useState({});
 
     useEffect(() => {
-        const imageID = props.match.params.imageID;
-        axios.get(`http://127.0.0.1:8000/api/images/${imageID}`).then((res) => {
+        const id = props.match.params.id;
+        axios.get(`${backendEndpoints.api.images}/${id}`).then((res) => {
             setImage(res.data);
         });
     });
@@ -16,10 +17,10 @@ export const ImageDetailContainer = (props) => {
 };
 
 export const ImageListContainer = (props) => {
-    const [images, setImages] = useState({});
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/api/images/").then((res) => {
+        axios.get(backendEndpoints.api.images).then((res) => {
             setImages(res.data);
         });
     });

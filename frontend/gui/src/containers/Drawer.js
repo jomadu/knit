@@ -1,5 +1,5 @@
 import React from "react";
-import { Link   } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -12,6 +12,9 @@ import CollectionsIcon from "@material-ui/icons/Collections";
 
 import { isAuthenticated } from "../selectors/index";
 import { signOut } from "../store/reducers/auth";
+
+import { frontendEndpoints } from "../routes/routes";
+import { reverse } from "named-urls";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,7 +30,14 @@ const ConnectedNavDrawerContainer = (props) => {
     let navItems = [];
     if (props.isAuthenticated) {
         navItems.push(
-            <ListItem button component={Link} to={`/account/${props.username}`} key={`Account`}>
+            <ListItem
+                button
+                component={Link}
+                to={reverse(frontendEndpoints.user, {
+                    username: props.username,
+                })}
+                key="Account"
+            >
                 <ListItemIcon>
                     <AccountCircleIcon />
                 </ListItemIcon>
@@ -44,7 +54,12 @@ const ConnectedNavDrawerContainer = (props) => {
         );
     } else {
         navItems.push(
-            <ListItem button component={Link} to="/signin" key="Sign In">
+            <ListItem
+                button
+                component={Link}
+                to={frontendEndpoints.signIn}
+                key="Sign In"
+            >
                 <ListItemIcon>
                     <AccountCircleIcon />
                 </ListItemIcon>
@@ -53,7 +68,12 @@ const ConnectedNavDrawerContainer = (props) => {
         );
     }
     navItems.push(
-        <ListItem button component={Link} to="/images" key="Images">
+        <ListItem
+            button
+            component={Link}
+            to={frontendEndpoints.images}
+            key="Images"
+        >
             <ListItemIcon>
                 <CollectionsIcon />
             </ListItemIcon>
@@ -69,7 +89,8 @@ const ConnectedNavDrawerContainer = (props) => {
 
 const mapStateToProps = (state) => ({
     isAuthenticated: isAuthenticated(state),
-    username: state.user === null ? "" : state.user.username});
+    username: state.user === null ? "" : state.user.username,
+});
 const mapDispatchToProps = (dispatch) => {
     return {
         handleSignOut: () => dispatch(signOut()),

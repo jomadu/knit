@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import { Redirect, Route } from "react-router";
 import { isAuthenticated } from "../selectors/index";
 import * as RouteTypes from "./route-types";
+
+import {frontendEndpoints} from "./routes";
 const AuthRoute = (props) => {
     const { isAuthenticated, type } = props;
     if (type === RouteTypes.ROUTE_PROTECTED && !isAuthenticated) {
-        return <Redirect to="/signin" />;
+        return <Redirect to={frontendEndpoints.signIn} />;
     } else {
         return <Route {...props} />;
     }
