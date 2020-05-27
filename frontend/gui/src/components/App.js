@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import BaseRouter from "../routes";
+import BaseRouter from "../routes/BaseRouter";
 import Layout from "./Layout";
 
 const App = () => {

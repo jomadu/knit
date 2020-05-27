@@ -1,5 +1,5 @@
 import React from "react";
-import BaseRouter from "../routes";
+import BaseRouter from '../routes/AuthRoute';
 
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";

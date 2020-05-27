@@ -1,45 +1,30 @@
-import React from "react";
-import axios from 'axios';
-import ImageDetail, {ImageList} from "../components/Image";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import ImageDetail, { ImageList } from "../components/Image";
 
-class ImageDetailContainer extends React.Component {
-    state = {
-        image: {}
-    };
+export const ImageDetailContainer = (props) => {
+    const [image, setImage] = useState({});
 
-    componentDidMount() {
-        const imageID = this.props.match.params.imageID;
-        axios.get(`http://127.0.0.1:8000/api/images/${imageID}`)
-        .then(res => {
-            this.setState({
-                image: res.data
-            });
-        })
-    }
+    useEffect(() => {
+        const imageID = props.match.params.imageID;
+        axios.get(`http://127.0.0.1:8000/api/images/${imageID}`).then((res) => {
+            setImage(res.data);
+        });
+    });
 
-    render() {
-        return <ImageDetail image={this.state.image} />;
-    }
-}
+    return <ImageDetail image={image} />;
+};
 
+export const ImageListContainer = (props) => {
+    const [images, setImages] = useState({});
 
-export class ImageListContainer extends React.Component {
-    state = {
-        images: [],
-    };
+    useEffect(() => {
+        axios.get("http://127.0.0.1:8000/api/images/").then((res) => {
+            setImages(res.data);
+        });
+    });
 
-    componentDidMount() {
-        axios.get('http://127.0.0.1:8000/api/images/')
-        .then(res => {
-            this.setState({
-                images: res.data
-            });
-        })
-    }
-
-    render() {
-        return <ImageList images={this.state.images} />;
-    }
-}
+    return <ImageList images={images} />;
+};
 
 export default ImageDetailContainer;

@@ -1,63 +1,71 @@
 import { takeEvery, call, put, all } from "redux-saga/effects";
-import * as Actions from "../actions/index";
-import * as ActionTypes from "../constants/action-types";
+import { signIn, signUp, start, success, fail } from "../reducers/auth";
 import axios from "axios";
 
-function* watchauthSignIn() {
-    yield takeEvery(ActionTypes.AUTH_SIGN_IN, authSignIn);
+function* watchSignIn() {
+    yield takeEvery(signIn, signInWorker);
 }
-function* authSignIn(action) {
+function* signInWorker(action) {
     try {
-        yield put(Actions.authStart());
-        const data = yield call(
-            createJWT,
+        yield put(start());
+        const jwtData = yield call(
+            getJWT,
             action.payload.email,
             action.payload.password
         );
-        yield put(Actions.authSuccess(data.access, data.refresh));
+        const userData = yield call(
+            getUser,
+            jwtData.access
+        );
+        yield put(success(jwtData.access, jwtData.refresh, userData));
     } catch (e) {
-        yield put(Actions.authFail(e));
+        yield put(fail(e));
     }
 }
-function createJWT(email, password) {
+const getJWT = (email, password) => {
     return axios
         .post("http://127.0.0.1:8000/auth/jwt/create/", {
             email: email,
             password: password,
         })
         .then((response) => response.data);
-}
+};
+const getUser = (access) => {
+    return axios.get("http://127.0.0.1:8000/auth/users/me", {
+        headers: {
+            Authorization: "Bearer " + access
+        },
+    }).then((response) => response.data);
+};
 
-function* watchauthSignUp() {
-    yield takeEvery(ActionTypes.AUTH_SIGN_UP, authSignUp);
+function* watchSignUp() {
+    yield takeEvery(signUp, signUpWorker);
 }
-function* authSignUp(action) {
+function* signUpWorker(action) {
     try {
-        yield put(Actions.authStart());
+        yield put(start());
         yield call(
-            signup,
+            createUser,
             action.payload.email,
             action.payload.username,
             action.payload.password,
             action.payload.re_password
         );
-        const jwt_data = yield call(
-            createJWT,
+        const jwtData = yield call(
+            getJWT,
             action.payload.email,
             action.payload.password
         );
-        yield put(Actions.authSuccess(jwt_data.access, jwt_data.refresh));
+        const userData = yield call(
+            getUser,
+            jwtData.access
+        );
+        yield put(success(jwtData.access, jwtData.refresh, userData));
     } catch (e) {
-        yield put(Actions.authFail(e));
+        yield put(fail(e));
     }
 }
-function signup(email, username, password, re_password) {
-    // console.log({
-    //     email: email,
-    //     username: username,
-    //     password: password,
-    //     re_password: re_password,
-    // });
+const createUser = (email, username, password, re_password) => {
     return axios
         .post("http://127.0.0.1:8000/auth/users/", {
             email: email,
@@ -66,8 +74,8 @@ function signup(email, username, password, re_password) {
             re_password: re_password,
         })
         .then((response) => response.data);
-}
+};
 
 export default function* authSaga() {
-    yield all([watchauthSignIn(), watchauthSignUp()]);
+    yield all([watchSignIn(), watchSignUp()]);
 }

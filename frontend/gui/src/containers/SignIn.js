@@ -1,21 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
-import { authSignIn } from "../store/actions/index";
+import { Redirect } from "react-router-dom";
+import { signIn } from "../store/reducers/auth";
 import SignInForm from "../components/Form/SignIn";
+import isAuthenticated from "../selectors/index";
 
-const ConnectedSignInFormContainer = (props) => {
-    return <SignInForm onSignIn={props.authSignIn} />;
+const SignInFormContainer = (props) => {
+    if (props.isAuthenticated)
+        return <Redirect to={`/account/${props.username}`} />;
+    return <SignInForm onSignIn={props.handleSignIn} />;
 };
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: isAuthenticated(state),
+    username: state.user === null ? "" : state.user.username,
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        authSignIn: (email, password) => dispatch(authSignIn(email, password)),
+        handleSignIn: (email, password) => dispatch(signIn(email, password)),
     };
 };
 
-const SignInFormContainer = connect(
-    null,
+export default connect(
+    mapStateToProps,
     mapDispatchToProps
-)(ConnectedSignInFormContainer);
-
-export default SignInFormContainer;
+)(SignInFormContainer);

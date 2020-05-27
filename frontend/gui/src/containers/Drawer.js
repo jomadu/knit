@@ -1,4 +1,5 @@
 import React from "react";
+import { Link   } from "react-router-dom";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -7,8 +8,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import InboxIcon from "@material-ui/icons/Inbox";
 
-import { isAuthenticated } from "../store/selectors/index";
-import { authSignOut } from "../store/actions/index";
+import { isAuthenticated } from "../selectors/index";
+import { signOut } from "../store/reducers/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,15 +25,15 @@ const ConnectedNavDrawerContainer = (props) => {
     let navItems = [];
     if (props.isAuthenticated) {
         navItems.push(
-            <ListItem button component="a" href="/myaccount" key="My Account">
+            <ListItem button component={Link} to={`/account/${props.username}`} key={`Account`}>
                 <ListItemIcon>
                     <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary="My Account" />
+                <ListItemText primary={`${props.username}`} />
             </ListItem>
         );
         navItems.push(
-            <ListItem button onClick={props.onSignOut} key="Sign Out">
+            <ListItem button onClick={props.handleSignOut} key="Sign Out">
                 <ListItemIcon>
                     <InboxIcon />
                 </ListItemIcon>
@@ -41,7 +42,7 @@ const ConnectedNavDrawerContainer = (props) => {
         );
     } else {
         navItems.push(
-            <ListItem button component="a" href="/signin" key="Sign In">
+            <ListItem button component={Link} to="/signin" key="Sign In">
                 <ListItemIcon>
                     <InboxIcon />
                 </ListItemIcon>
@@ -50,7 +51,7 @@ const ConnectedNavDrawerContainer = (props) => {
         );
     }
     navItems.push(
-        <ListItem button component="a" href="/images" key="Images">
+        <ListItem button component={Link} to="/images" key="Images">
             <ListItemIcon>
                 <InboxIcon />
             </ListItemIcon>
@@ -66,10 +67,10 @@ const ConnectedNavDrawerContainer = (props) => {
 
 const mapStateToProps = (state) => ({
     isAuthenticated: isAuthenticated(state),
-});
+    username: state.user === null ? "" : state.user.username});
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSignOut: () => dispatch(authSignOut()),
+        handleSignOut: () => dispatch(signOut()),
     };
 };
 const NavDrawerContainer = connect(

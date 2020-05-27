@@ -1,22 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { authSignUp } from "../store/actions/index";
+import { signUp } from "../store/reducers/auth";
 import SignUpForm from "../components/Form/SignUp";
 
-const ConnectedSignUpFormContainer = (props) => {
-    return <SignUpForm onSignUp={props.authSignUp} />;
+const SignUpFormContainer = (props) => {
+    return <SignUpForm onSignUp={props.handleSignUp} />;
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        authSignUp: (email, username, password, re_password) =>
-            dispatch(authSignUp(email, username, password, re_password)),
+        handleSignUp: (email, username, password, re_password) =>
+            dispatch(signUp(email, username, password, re_password)),
     };
 };
 
-const SignUpFormContainer = connect(
-    null,
-    mapDispatchToProps
-)(ConnectedSignUpFormContainer);
-
-export default SignUpFormContainer;
+export default connect(null, mapDispatchToProps)(SignUpFormContainer);
