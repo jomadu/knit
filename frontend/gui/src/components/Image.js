@@ -9,7 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import PhotoIcon from "@material-ui/icons/Photo";
 import Typography from "@material-ui/core/Typography";
 
-import { frontendEndpoints } from "../routes/routes";
+import { frontend } from "../routes/urls";
 import { reverse } from "named-urls";
 
 const ImageDetail = ({ image }) => {
@@ -29,7 +29,7 @@ export const ImageList = ({ images }) => {
             <ListItem
                 button
                 component={Router}
-                to={reverse(frontendEndpoints.imageDetail, {
+                to={reverse(frontend.imageDetail, {
                     id: image.id,
                 })}
             >

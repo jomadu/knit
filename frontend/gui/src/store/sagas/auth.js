@@ -1,7 +1,7 @@
 import { takeEvery, call, put, all } from "redux-saga/effects";
 import { signIn, signUp, start, success, fail } from "../reducers/auth";
 import axios from "axios";
-import { backendEndpoints } from "../../routes/routes";
+import { backend } from "../../routes/urls";
 
 function* watchSignIn() {
     yield takeEvery(signIn, signInWorker);
@@ -22,7 +22,7 @@ function* signInWorker(action) {
 }
 const getJWT = (email, password) => {
     return axios
-        .post(backendEndpoints.djoser.jwtCreate, {
+        .post(backend.djoser.jwtCreate, {
             email: email,
             password: password,
         })
@@ -30,7 +30,7 @@ const getJWT = (email, password) => {
 };
 const getUser = (access) => {
     return axios
-        .get(backendEndpoints.djoser.user, {
+        .get(backend.djoser.user, {
             headers: {
                 Authorization: "Bearer " + access,
             },
@@ -64,7 +64,7 @@ function* signUpWorker(action) {
 }
 const createUser = (email, username, password, re_password) => {
     return axios
-        .post(backendEndpoints.djoser.user, {
+        .post(backend.djoser.user, {
             email: email,
             username: username,
             password: password,

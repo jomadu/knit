@@ -31,12 +31,12 @@ for (let endpoint in api) {
     api[endpoint] = BACKEND_URL + "/" + API_URL + api[endpoint];
 }
 
-export const backendEndpoints = {
+export const backend = {
     djoser: Object.assign({}, djoser),
     api: Object.assign({}, api)
 };
 
-export const frontendEndpoints = {
+export const frontend = {
     home: "/",
     user: "/:username",
     images: "/images",

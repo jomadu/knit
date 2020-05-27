@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ImageDetail, { ImageList } from "../components/Image";
-import { backendEndpoints } from "../routes/routes";
+import { backend } from "../routes/urls";
 
 export const ImageDetailContainer = (props) => {
     const [image, setImage] = useState({});
 
     useEffect(() => {
         const id = props.match.params.id;
-        axios.get(`${backendEndpoints.api.images}/${id}`).then((res) => {
+        axios.get(`${backend.api.images}/${id}`).then((res) => {
             setImage(res.data);
         });
     });
@@ -20,7 +20,7 @@ export const ImageListContainer = (props) => {
     const [images, setImages] = useState([]);
 
     useEffect(() => {
-        axios.get(backendEndpoints.api.images).then((res) => {
+        axios.get(backend.api.images).then((res) => {
             setImages(res.data);
         });
     });

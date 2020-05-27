@@ -18,7 +18,7 @@ import Copyright from '../Copyright';
 import useForm from "../../hooks/useForm";
 import useFormStyles from '../styles/index';
 
-import {frontendEndpoints} from "../../routes/routes";
+import {frontend} from "../../routes/urls";
 
 export const SignInForm = ({ onSignIn }) => {
     const { values, handleChange, handleSubmit } = useForm(() => {
@@ -88,7 +88,7 @@ export const SignInForm = ({ onSignIn }) => {
                         <Grid item>
                             <Link
                                 component={RouterLink}
-                                to={frontendEndpoints.signUp}
+                                to={frontend.signUp}
                                 variant="body2"
                             >
                                 {"Don't have an account? Sign Up"}

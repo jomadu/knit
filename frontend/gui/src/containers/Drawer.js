@@ -13,7 +13,7 @@ import CollectionsIcon from "@material-ui/icons/Collections";
 import { isAuthenticated } from "../selectors/index";
 import { signOut } from "../store/reducers/auth";
 
-import { frontendEndpoints } from "../routes/routes";
+import { frontend } from "../routes/urls";
 import { reverse } from "named-urls";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +33,7 @@ const ConnectedNavDrawerContainer = (props) => {
             <ListItem
                 button
                 component={Link}
-                to={reverse(frontendEndpoints.user, {
+                to={reverse(frontend.user, {
                     username: props.username,
                 })}
                 key="Account"
@@ -57,7 +57,7 @@ const ConnectedNavDrawerContainer = (props) => {
             <ListItem
                 button
                 component={Link}
-                to={frontendEndpoints.signIn}
+                to={frontend.signIn}
                 key="Sign In"
             >
                 <ListItemIcon>
@@ -71,7 +71,7 @@ const ConnectedNavDrawerContainer = (props) => {
         <ListItem
             button
             component={Link}
-            to={frontendEndpoints.images}
+            to={frontend.images}
             key="Images"
         >
             <ListItemIcon>

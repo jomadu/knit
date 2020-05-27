@@ -4,11 +4,11 @@ import { Redirect, Route } from "react-router";
 import { isAuthenticated } from "../selectors/index";
 import * as RouteTypes from "./route-types";
 
-import {frontendEndpoints} from "./routes";
+import {frontend} from "./urls";
 const AuthRoute = (props) => {
     const { isAuthenticated, type } = props;
     if (type === RouteTypes.ROUTE_PROTECTED && !isAuthenticated) {
-        return <Redirect to={frontendEndpoints.signIn} />;
+        return <Redirect to={frontend.signIn} />;
     } else {
         return <Route {...props} />;
     }
