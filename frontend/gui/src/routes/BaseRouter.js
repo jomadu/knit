@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import ImageDetailContainer, { ImageListContainer } from "../containers/Image";
 import SignInFormContainer from "../containers/SignIn";
 import SignUpFormContainer from "../containers/SignUp";
-import * as RouteTypes from "../constants/route-types";
+import * as RouteTypes from "./route-types";
 import AuthRoute from "../routes/AuthRoute";
 import AccountContainer from "../containers/Account";
 

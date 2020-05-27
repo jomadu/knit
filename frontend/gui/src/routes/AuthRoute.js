@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect, Route } from "react-router";
 import { isAuthenticated } from "../selectors/index";
-import * as RouteTypes from "../constants/route-types";
+import * as RouteTypes from "./route-types";
 const AuthRoute = (props) => {
     const { isAuthenticated, type } = props;
     if (type === RouteTypes.ROUTE_PROTECTED && !isAuthenticated) {

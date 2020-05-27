@@ -1,4 +1,3 @@
-// import * as ActionTypes from "../constants/action-types";
 import { updateObject } from "../../utility";
 import { createSlice, createAction } from "@reduxjs/toolkit";
 
