@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 
     # Knit-ML apps
     'api',
-    'account'
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -136,7 +136,7 @@ STATIC_URL = '/static/'
 
 # SITE_ID = 1 # for rest auth registration
 
-AUTH_USER_MODEL = 'account.Account'
+AUTH_USER_MODEL = 'user.CustomUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
