@@ -17,6 +17,8 @@ export const signUp = createAction(
     })
 );
 
+export const getUser = createAction("auth/getUser");
+
 const initialState = {
     token: {
         access: localStorage.getItem("token_access"),
@@ -51,7 +53,7 @@ const authSlice = createSlice({
                 error: null,
             });
         },
-        success: {
+        signedIn: {
             reducer: (state, action) => {
                 localStorage.setItem("token_access", action.payload.access);
                 localStorage.setItem("token_refresh", action.payload.refresh);
@@ -66,8 +68,12 @@ const authSlice = createSlice({
                 });
             },
             prepare: (access, refresh, user) => ({
-                payload: { access: access, refresh: refresh, user: user },
-            }),
+                payload: {
+                    access: access,
+                    refresh: refresh,
+                    user: user,
+                }
+            })
         },
         fail: (state, action) => {
             return updateObject(state, {
@@ -79,5 +85,5 @@ const authSlice = createSlice({
 });
 
 const { actions, reducer } = authSlice;
-export const { signOut, start, success, fail } = actions;
+export const { signOut, start, signedIn, fail } = actions;
 export default reducer;

@@ -1,5 +1,5 @@
 import { takeEvery, call, put, all } from "redux-saga/effects";
-import { signIn, signUp, start, success, fail } from "../reducers/auth";
+import { signIn, signUp, start, signedIn, fail } from "../reducers/auth";
 import axios from "axios";
 import { backend } from "../../routes/urls";
 
@@ -15,7 +15,7 @@ function* signInWorker(action) {
             action.payload.password
         );
         const userData = yield call(getUser, jwtData.access);
-        yield put(success(jwtData.access, jwtData.refresh, userData));
+        yield put(signedIn(jwtData.access, jwtData.refresh, userData));
     } catch (e) {
         yield put(fail(e));
     }
@@ -57,7 +57,7 @@ function* signUpWorker(action) {
             action.payload.password
         );
         const userData = yield call(getUser, jwtData.access);
-        yield put(success(jwtData.access, jwtData.refresh, userData));
+        yield put(signedIn(jwtData.access, jwtData.refresh, userData));
     } catch (e) {
         yield put(fail(e));
     }
