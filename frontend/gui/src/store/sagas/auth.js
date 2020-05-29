@@ -1,34 +1,106 @@
 import { takeEvery, call, put, all } from "redux-saga/effects";
-import { signIn, signUp, start, signedIn, fail } from "../reducers/auth";
+// import { signIn, signUp, start, signedIn, fail } from "../reducers/auth";
+import {
+    actions,
+    USERNAME_FIELD,
+    REQUIRED_FIELDS,
+    USER_PK_NAME,
+} from "../reducers/auth";
 import axios from "axios";
 import { backend } from "../../routes/urls";
+import { pick } from "lodash";
 
-function* watchSignIn() {
-    yield takeEvery(signIn, signInWorker);
+function* watchSignInRequest() {
+    yield takeEvery(actions.SIGN_IN_REQUEST, signInRequestWorker);
 }
-function* signInWorker(action) {
+function* signInRequestWorker(action) {
     try {
-        yield put(start());
-        const jwtData = yield call(
-            getJWT,
-            action.payload.email,
+        const { access, refresh } = yield call(
+            postToJWTCreate,
+            action.payload[USERNAME_FIELD],
             action.payload.password
         );
-        const userData = yield call(getUser, jwtData.access);
-        yield put(signedIn(jwtData.access, jwtData.refresh, userData));
+        const user = yield call(getFromUser, access);
+        const username = user[USERNAME_FIELD];
+        const pk = user[USER_PK_NAME];
+        const requiredFields = pick(user, REQUIRED_FIELDS);
+
+        yield put(
+            actions.SIGN_IN_SUCCESS(
+                access,
+                refresh,
+                username,
+                pk,
+                requiredFields
+            )
+        );
     } catch (e) {
-        yield put(fail(e));
+        yield put(actions.SIGN_IN_FAILURE(e));
     }
 }
-const getJWT = (email, password) => {
+
+function* watchSignUpRequest() {
+    yield takeEvery(actions.SIGN_UP_REQUEST, signUpRequestWorker);
+}
+function* signUpRequestWorker(action) {
+    try {
+        let requiredFields = pick(action.payload, REQUIRED_FIELDS);
+        yield call(
+            postToUserCreate,
+            action.payload[USERNAME_FIELD],
+            requiredFields,
+            action.payload.password,
+            action.payload.rePassword
+        );
+        const { access, refresh } = yield call(
+            postToJWTCreate,
+            action.payload[USERNAME_FIELD],
+            action.payload.password
+        );
+        const user = yield call(getFromUser, access);
+        const username = user[USERNAME_FIELD];
+        const pk = user[USER_PK_NAME];
+        requiredFields = pick(user, REQUIRED_FIELDS);
+
+        yield put(
+            actions.SIGN_UP_SUCCESS(
+                access,
+                refresh,
+                username,
+                pk,
+                requiredFields
+            )
+        );
+    } catch (e) {
+        yield put(actions.SIGN_UP_FAILURE(e));
+    }
+}
+
+function* watchJWTCreateRequest() {
+    yield takeEvery(actions.JWT_CREATE_REQUEST, jwtCreateRequestWorker);
+}
+function* jwtCreateRequestWorker(action) {
+    try {
+        const { access, refresh } = yield call(
+            postToJWTCreate,
+            action.payload[USERNAME_FIELD],
+            action.payload.password
+        );
+        yield put(actions.JWT_CREATE_SUCCESS(access, refresh));
+    } catch (e) {
+        yield put(actions.JWT_CREATE_FAILURE(e));
+    }
+}
+
+const postToJWTCreate = (username, password) => {
     return axios
         .post(backend.djoser.jwtCreate, {
-            email: email,
+            [USERNAME_FIELD]: username,
             password: password,
         })
         .then((response) => response.data);
 };
-const getUser = (access) => {
+const getFromUser = (access) => {
     return axios
         .get(backend.djoser.user, {
             headers: {
@@ -38,41 +110,21 @@ const getUser = (access) => {
         .then((response) => response.data);
 };
 
-function* watchSignUp() {
-    yield takeEvery(signUp, signUpWorker);
-}
-function* signUpWorker(action) {
-    try {
-        yield put(start());
-        yield call(
-            createUser,
-            action.payload.email,
-            action.payload.username,
-            action.payload.password,
-            action.payload.re_password
-        );
-        const jwtData = yield call(
-            getJWT,
-            action.payload.email,
-            action.payload.password
-        );
-        const userData = yield call(getUser, jwtData.access);
-        yield put(signedIn(jwtData.access, jwtData.refresh, userData));
-    } catch (e) {
-        yield put(fail(e));
-    }
-}
-const createUser = (email, username, password, re_password) => {
+const postToUserCreate = (username, requiredFields, password, rePassword) => {
     return axios
-        .post(backend.djoser.user, {
-            email: email,
-            username: username,
+        .post(backend.djoser.userCreate, {
+            [USERNAME_FIELD]: username,
+            ...requiredFields,
             password: password,
-            re_password: re_password,
+            re_password: rePassword,
         })
         .then((response) => response.data);
 };
 
 export default function* authSaga() {
-    yield all([watchSignIn(), watchSignUp()]);
+    yield all([
+        watchSignInRequest(),
+        watchSignUpRequest(),
+        watchJWTCreateRequest(),
+    ]);
 }

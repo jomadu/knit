@@ -36,6 +36,10 @@
     ]
   },
   "devDependencies": {
+    "lodash.clone": "^4.5.0",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.omit": "^4.5.0",
+    "lodash.pick": "^4.4.0",
     "named-urls": "^2.0.0",
     "react-redux": "^7.2.0",
     "redux-saga": "^1.1.3",

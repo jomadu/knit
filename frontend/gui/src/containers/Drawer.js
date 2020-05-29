@@ -11,7 +11,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import CollectionsIcon from "@material-ui/icons/Collections";
 
 import { isAuthenticated } from "../selectors/index";
-import { signOut } from "../store/reducers/auth";
+import { actions as authActions, USER_URL_FIELD } from "../store/reducers/auth";
 
 import { frontend } from "../routes/urls";
 import { reverse } from "named-urls";
@@ -34,14 +34,14 @@ const ConnectedNavDrawerContainer = (props) => {
                 button
                 component={Link}
                 to={reverse(frontend.user, {
-                    username: props.username,
+                    [USER_URL_FIELD]: props[USER_URL_FIELD],
                 })}
                 key="Account"
             >
                 <ListItemIcon>
                     <AccountCircleIcon />
                 </ListItemIcon>
-                <ListItemText primary={`${props.username}`} />
+                <ListItemText primary={`${props[USER_URL_FIELD]}`} />
             </ListItem>
         );
         navItems.push(
@@ -89,11 +89,11 @@ const ConnectedNavDrawerContainer = (props) => {
 
 const mapStateToProps = (state) => ({
     isAuthenticated: isAuthenticated(state),
-    username: state.user === null ? "" : state.user.username,
+    [USER_URL_FIELD]: state.user && state.user[USER_URL_FIELD]  ? state.user[USER_URL_FIELD] : "",
 });
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleSignOut: () => dispatch(signOut()),
+        handleSignOut: () => dispatch(authActions.SIGN_OUT_REQUEST()),
     };
 };
 const NavDrawerContainer = connect(

@@ -18,15 +18,13 @@ import useFormStyles from '../styles/index';
 
 import {frontend} from "../../routes/urls";
 
-
-
 export const SignUpForm = ({ onSignUp }) => {
     const { values, handleChange, handleSubmit } = useForm(() => {
         onSignUp(
             values.email,
             values.username,
             values.password,
-            values.re_password
+            values.rePassword
         );
     });
 
@@ -86,10 +84,10 @@ export const SignUpForm = ({ onSignUp }) => {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                name="re_password"
+                                name="rePassword"
                                 label="Re-Password"
                                 type="password"
-                                id="re_password"
+                                id="rePassword"
                                 autoComplete="current-password"
                                 onChange={handleChange}
                             />

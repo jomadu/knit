@@ -23,7 +23,6 @@ const ImageDetail = ({ image }) => {
     );
 };
 export const ImageList = ({ images }) => {
-    console.log(images)
     const listItems = images.map((image) => {
         return (
             <ListItem

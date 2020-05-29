@@ -1,10 +1,10 @@
 import { createSelector } from "reselect";
 
-const getToken = (state) => state.token;
+const getJWT = (state) => state.jwt;
 const getUser = (state) => state.user;
 
-export const isAuthenticated = createSelector([getToken, getUser], (token, user) => {
-    return token && token.access && token.refresh && user ? true : false;
+export const isAuthenticated = createSelector([getJWT, getUser], (jwt, user) => {
+    return jwt && jwt.access && jwt.refresh && user ? true : false;
 });
 
 
