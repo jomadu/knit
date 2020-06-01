@@ -1,5 +1,4 @@
 import { createAction } from "@reduxjs/toolkit";
-import { updateObjectProperties } from "../../utility";
 import { omit } from "lodash";
 
 export const addSliceReducersForAction = (
@@ -70,11 +69,11 @@ const getErrorName = (actionType) => {
 };
 
 export const clearActionError = (state, action) =>
-    updateObjectProperties(state, { [`${getErrorName(action.type)}`]: null });
+    merge({}, state, { [`${getErrorName(action.type)}`]: null });
 export const deleteActionError = (state, action) =>
     omit(state, getErrorName(action.type));
 export const updateActionError = (state, action) => {
-    return updateObjectProperties(state, {
+    return merge({}, state, {
         [`${getErrorName(action.type)}`]: action.payload.error,
     });
 };

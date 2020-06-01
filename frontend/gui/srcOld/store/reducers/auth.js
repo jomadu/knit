@@ -1,4 +1,3 @@
-import { updateObjectProperties } from "../../utility";
 import { createSlice } from "@reduxjs/toolkit";
 import {
     addReduxSagaAction,
@@ -7,7 +6,7 @@ import {
     successActionReducer,
     addSliceReducersForAction,
 } from "./utility";
-import { pick, omit } from "lodash";
+import { pick, omit, merge } from "lodash";
 
 export const SLICE_NAME = "AUTH";
 export const USERNAME_FIELD = "email";
@@ -30,7 +29,7 @@ const signInUpSuccessReducer = (state, action) =>
         const requiredFields = pick(action.payload, REQUIRED_FIELDS);
         localStorage.setItem(LOCAL_STORAGE_ITEMS.JWT.ACCESS, access);
         localStorage.setItem(LOCAL_STORAGE_ITEMS.JWT.REFRESH, refresh);
-        return updateObjectProperties(state, {
+        return merge({},state, {
             jwt: { access, refresh },
             user: {
                 [USERNAME_FIELD]: username,
@@ -128,7 +127,7 @@ const jwtCreateSuccessReducer = (state, action) =>
         const { access, refresh } = action.payload;
         localStorage.setItem(LOCAL_STORAGE_ITEMS.JWT.ACCESS, access);
         localStorage.setItem(LOCAL_STORAGE_ITEMS.JWT.REFRESH, refresh);
-        return updateObjectProperties(state, {
+        return merge({},state, {
             jwt: { access, refresh },
         });
     });
@@ -160,7 +159,7 @@ const getUserInfoSuccessReducer = (state, action) =>
         const username = action.payload[USERNAME_FIELD];
         const pk = action.payload[USER_PK_NAME];
         const requiredFields = pick(action.payload, REQUIRED_FIELDS);
-        return updateObjectProperties(state, {
+        return merge({],state, {
             user: {
                 [USERNAME_FIELD]: username,
                 [USER_PK_NAME]: pk,

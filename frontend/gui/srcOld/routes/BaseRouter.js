@@ -4,7 +4,7 @@ import ImageDetailContainer, { ImageListContainer } from "../containers/Image";
 import SignInFormContainer from "../containers/SignIn";
 import SignUpFormContainer from "../containers/SignUp";
 import * as RouteTypes from "./route-types";
-import AuthRoute from "../routes/AuthRoute";
+import AuthRoute from "./AuthRoute";
 import AccountContainer from "../containers/Account";
 import { frontend } from "./urls";
 
