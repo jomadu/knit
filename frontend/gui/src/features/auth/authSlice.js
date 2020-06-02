@@ -7,24 +7,39 @@ import {
 } from "./actions/authCommon";
 
 import {
-    ACTION_TYPE_BASENAME as signInActionTypeBasename,
-    requestWorker as signInRequestWorker,
-    requestPrepare as signInRequestPrepare,
+    SIGN_IN_ACTION_TYPE_BASENAME,
+    signInRequestWorker,
+    signInRequestPrepare,
 } from "./actions/signInAction";
+
+import {
+    SIGN_UP_ACTION_TYPE_BASENAME,
+    signUpRequestWorker,
+    signUpRequestPrepare,
+} from "./actions/signUpAction";
 
 
 let authReduxSagaSlice = new ReduxSagaSlice(APP_NAME, FEATURE_NAME);
 
 // SIGN_IN
-authReduxSagaSlice.addSagaAction(
-    signInActionTypeBasename,
+authReduxSagaSlice.addAsyncAction(
+    SIGN_IN_ACTION_TYPE_BASENAME,
     signInRequestWorker,
     signInRequestPrepare,
     signInUpSuccessPrepare,
     signInUpSuccessReducer,
-    undefined,
     undefined
 );
+// SIGN_UP
+authReduxSagaSlice.addAsyncAction(
+    SIGN_UP_ACTION_TYPE_BASENAME,
+    signUpRequestWorker,
+    signUpRequestPrepare,
+    signInUpSuccessPrepare,
+    signInUpSuccessReducer,
+    undefined
+);
+
 
 export {authReduxSagaSlice as slice};
 export const saga = authReduxSagaSlice.saga();
