@@ -9,9 +9,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { APP_NAME } from "../appConstants";
+import { APP_NAME } from "../constants";
 
-// import NavDrawerContainer from "../containers/Drawer";
+import NavDrawerContainer from "../containers/Drawer";
 
 const drawerWidth = 240;
 
@@ -62,7 +62,7 @@ const Layout = (props) => {
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        {/* <NavDrawerContainer /> */}
+        <NavDrawerContainer />
       </div>
     );
   

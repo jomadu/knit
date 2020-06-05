@@ -181,14 +181,14 @@ export default class ReduxSagaSlice {
     }
 
     successActionReducer(state, action, extraReducer) {
-        const deletedActionError = deleteActionError(state, action);
+        const deletedActionError = this.deleteActionError(state, action);
         return extraReducer
             ? extraReducer(deletedActionError, action)
             : deletedActionError;
     }
 
     failureActionReducer(state, action, extraReducer) {
-        const updatedActionError = updateActionError(state, action);
+        const updatedActionError = this.updateActionError(state, action);
         return extraReducer
             ? extraReducer(updatedActionError, action)
             : updatedActionError;
@@ -244,16 +244,17 @@ export default class ReduxSagaSlice {
 
         // important to add SUCCESS and FAILURE subactions prior to the REQUEST subaction, as it will refer to them both
         this._actions[actionTypeBasename][SUCCESS] = {
-            type: types.SUCCESS,
+            type: types[SUCCESS],
             actionCreator: createAction(types[SUCCESS], successPrepare),
-            reducer: (state, action) =>
-                this.successActionReducer(state, action, successReducer),
+            reducer: (state, action) => {
+                return this.successActionReducer(state, action, successReducer);
+            },
         };
 
         // Note: FAILURE subactions do not had preparers because they simple convey the error thrown to the redux reducer
         this._actions[actionTypeBasename][FAILURE] = {
-            type: types.FAILURE,
-            actionCreator: createAction(types.FAILURE),
+            type: types[FAILURE],
+            actionCreator: createAction(types[FAILURE]),
             reducer: (state, action) =>
                 this.failureActionReducer(state, action, failureReducer),
         };

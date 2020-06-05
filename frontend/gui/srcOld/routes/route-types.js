@@ -1,2 +1,0 @@
-export const ROUTE_PUBLIC = 'ROUTE_PUBLIC';
-export const ROUTE_PROTECTED = 'ROUTE_PROTECTED';

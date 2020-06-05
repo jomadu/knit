@@ -1,4 +1,4 @@
-import {USERNAME_FIELD} from "../features/auth/authConstants";
+import {USERNAME_FIELD} from "../features/auth/constants";
 
 
 const BACKEND_URL = "http://127.0.0.1:8000";
@@ -41,7 +41,7 @@ export const backend = {
 
 export const frontend = {
     home: "/",
-    user: "/:username",
+    user: "/user/:username",
     images: "/images",
     imageDetail: "/images/:id",
     signIn: "/signin",
