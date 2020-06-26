@@ -1,1 +1,1 @@
-export const APP_NAME = "knitML";
+export const APP_NAME = "Knit";

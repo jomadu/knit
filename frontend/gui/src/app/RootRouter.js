@@ -1,29 +1,27 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import {frontend} from "../common/urls";
-import SignInFormContainer from "../features/auth/containers/SignIn";
-import SignUpFormContainer from "../features/auth/containers/SignUp";
-import UserHomeContainer from "../features/auth/containers/UserHome";
-import AuthRoute, {PROTECTED_ROUTE} from "../features/auth/AuthRoute";
+import Welcome from "./components/Welcome";
+import About from "./components/About";
+import Analyze from "../features/analyze/containers/Analyze"
 
 const RootRouter = () => {
     return (
         <Switch>
             <Route
                 exact
-                path={frontend.signIn}
-                component={SignInFormContainer}
+                path={frontend.welcome}
+                component={Welcome}
             />
             <Route
                 exact
-                path={frontend.signUp}
-                component={SignUpFormContainer}
+                path={frontend.about}
+                component={About}
             />
-            <AuthRoute
-                type={PROTECTED_ROUTE}
+            <Route
                 exact
-                path={frontend.user}
-                component={UserHomeContainer}
+                path={frontend.analyze}
+                component={Analyze}
             />
         </Switch>
     );

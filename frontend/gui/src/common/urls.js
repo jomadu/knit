@@ -40,10 +40,10 @@ export const backend = {
 };
 
 export const frontend = {
-    home: "/",
-    user: "/user/:username",
-    images: "/images",
-    imageDetail: "/images/:id",
-    signIn: "/signin",
-    signUp: "/signup",
+    welcome: "/",
+    about:"/about",
+    analyze: "/analyze",
+    userAccount: "/u/:username",
+    userProgress: "/u/:username/progress",
+    userHistory: "/u/:username/history",
 };
