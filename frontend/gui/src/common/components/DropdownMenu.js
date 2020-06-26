@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Grid from "@material-ui/core/Grid";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
@@ -59,19 +58,16 @@ const DropdownMenu = (props) => {
     return (
         <div className={classes.root}>
             <div>
-                <Grid container ref={anchorRef} alignItems="center" justify="center">
-                    {props.icon ? <Grid item> {props.icon}</Grid>: null}
-                    <Grid item>
-                        <Button
-                            aria-controls={open ? "menu-list-grow" : undefined}
-                            aria-haspopup="true"
-                            onClick={handleToggle}
-                            color="inherit"
-                        >
-                            {props.title}
-                        </Button>
-                    </Grid>
-                </Grid>
+                <Button
+                    aria-controls={open ? "menu-list-grow" : undefined}
+                    aria-haspopup="true"
+                    onClick={handleToggle}
+                    color="inherit"
+                    startIcon={props.icon ? props.icon : null}
+                    ref={anchorRef}
+                >
+                    {props.title}
+                </Button>
                 <Popper
                     open={open}
                     anchorEl={anchorRef.current}

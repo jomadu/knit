@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
-import AppBarContainer from "../../features/nav/containers/AppBar";
-import DrawerContainer from "../../features/nav/containers/Drawer";
+import NavContainer from "../containers/Nav";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,8 +13,7 @@ const Layout = (props) => {
 
     return (
         <div className={classes.root}>
-            <AppBarContainer/>
-            <DrawerContainer/>
+            <NavContainer/>
             <main>
                 {props.children}
             </main>
