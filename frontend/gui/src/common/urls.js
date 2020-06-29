@@ -1,4 +1,4 @@
-import {USERNAME_FIELD} from "../features/auth/constants";
+import {USER_FIELDS} from "../features/auth/constants";
 
 
 const BACKEND_URL = "http://127.0.0.1:8000";
@@ -11,9 +11,9 @@ let djoser = {
     userActivate: `/users/activation/`,
     userResendActivationEmail: `/users/resend_activation/`,
     user: `/users/me`,
-    setUsername: `/users/set_${USERNAME_FIELD}/`,
-    resetUsername: `/users/reset_${USERNAME_FIELD}/`,
-    resetUsernameConfirmation: `/users/reset_${USERNAME_FIELD}_confirm/`,
+    setUsername: `/users/set_${USER_FIELDS.AUTH_USERNAME}/`,
+    resetUsername: `/users/reset_${USER_FIELDS.AUTH_USERNAME}/`,
+    resetUsernameConfirmation: `/users/reset_${USER_FIELDS.AUTH_USERNAME}_confirm/`,
     setPassword: `/users/set_password/`,
     resetPassword: `/users/reset_password/`,
     resetPasswordConfirmation: `/users/reset_password_confirm/`,

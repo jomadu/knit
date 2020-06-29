@@ -1,7 +1,5 @@
 import {
-    USERNAME_FIELD,
-    USER_PK_FIELD,
-    REQUIRED_FIELDS,
+    USER_FIELDS,
 } from "../constants";
 import { postToJWTCreate, getFromUser, postToUserCreate } from "./apiCalls";
 import { call } from "redux-saga/effects";
@@ -10,41 +8,41 @@ import { pick } from "lodash";
 export const SIGN_UP = "SIGN_UP";
 
 export function* signUpRequestWorker(action) {
-    let requiredFields = pick(action.payload, REQUIRED_FIELDS);
+    let requiredFields = pick(action.payload, USER_FIELDS.REQUIRED);
     yield call(
         postToUserCreate,
-        action.payload[USERNAME_FIELD],
+        action.payload[USER_FIELDS.AUTH_USERNAME],
         requiredFields,
         action.payload.password,
         action.payload.rePassword
     );
     const { access, refresh } = yield call(
         postToJWTCreate,
-        action.payload[USERNAME_FIELD],
+        action.payload[USER_FIELDS.AUTH_USERNAME],
         action.payload.password
     );
     const user = yield call(getFromUser, access);
-    const username = user[USERNAME_FIELD];
-    const pk = user[USER_PK_FIELD];
-    requiredFields = pick(user, REQUIRED_FIELDS);
+    const authUsername = user[USER_FIELDS.AUTH_USERNAME];
+    const pk = user[USER_FIELDS.PK];
+    requiredFields = pick(user, USER_FIELDS.REQUIRED);
 
     return {
         access,
         refresh,
-        username,
+        authUsername,
         pk,
         requiredFields,
     };
 }
 
 export const signUpRequestPrepare = (
-    username,
+    authUsername,
     requiredFields,
     password,
     rePassword
 ) => ({
     payload: {
-        [USERNAME_FIELD]: username,
+        [USER_FIELDS.AUTH_USERNAME]: authUsername,
         ...requiredFields,
         password,
         rePassword: rePassword,

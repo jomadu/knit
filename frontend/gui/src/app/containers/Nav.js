@@ -7,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import MenuIcon from "@material-ui/icons/Menu";
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -16,6 +16,9 @@ import { APP_NAME } from "../constants";
 import DropdownMenu from "../../common/components/DropdownMenu";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
+
+import { actions as authActions } from "../../features/auth/slice";
+import { SIGN_OUT } from "../../features/auth/actions/signOut";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -27,6 +30,11 @@ import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import TrendingUpRoundedIcon from "@material-ui/icons/TrendingUpRounded";
 import DirectionsRunRoundedIcon from "@material-ui/icons/DirectionsRunRounded";
 import InfoRoundedIcon from "@material-ui/icons/InfoRounded";
+
+import {
+    isAuthenticated,
+    getAuthenticatedUser,
+} from "../../features/auth/selectors";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -166,7 +174,7 @@ const NavContainer = (props) => {
                 <Typography variant="inherit">History</Typography>
             </MenuItem>
             <Divider variant="middle" />
-            <MenuItem>
+            <MenuItem onClick={props.handleSignOut}>
                 <ListItemIcon>
                     <ExitToAppRoundedIcon />
                 </ListItemIcon>
@@ -191,10 +199,7 @@ const NavContainer = (props) => {
                     >
                         <Grid item>
                             <Grid container alignItems="center">
-                                <Grid
-                                    item
-                                    className={classes.drawerButton}
-                                >
+                                <Grid item className={classes.drawerButton}>
                                     <IconButton
                                         color="inherit"
                                         aria-label="open drawer"
@@ -235,10 +240,12 @@ const NavContainer = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: true,
-    user: { email: "maxdunn123@gmail.com", username: "maxdunn" },
+    isAuthenticated: isAuthenticated(state),
+    user: getAuthenticatedUser(state),
 });
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        handleSignOut: () => dispatch(authActions[SIGN_OUT].SYNC()),
+    };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(NavContainer);

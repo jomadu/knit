@@ -2,20 +2,20 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import SignUpForm from "../components/SignUp";
+import SignUpForm from "../components/SignUpForm";
 import { reverse } from "named-urls";
 import { frontend } from "../../../common/urls";
 import { actions as authActions } from "../slice";
-import { isAuthenticated } from "../selectors";
-import { USER_URL_FIELD } from "../constants";
+import { isAuthenticated, getUser } from "../selectors";
+import { USER_FIELDS } from "../constants";
 import { SIGN_UP } from "../actions/signUp";
 
 const SignUpFormContainer = (props) => {
-    if (props.isAuthenticated)
+    if (props.authenticatedUser)
             return (
                 <Redirect
                     to={reverse(frontend.user, {
-                        [USER_URL_FIELD]: props[USER_URL_FIELD],
+                        [USER_FIELDS.USERNAME]: props.authenticatedUser[USER_FIELDS.USERNAME],
                     })}
                 />
             );
@@ -23,11 +23,7 @@ const SignUpFormContainer = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: isAuthenticated(state),
-    [USER_URL_FIELD]:
-        state.user && state.user[USER_URL_FIELD]
-            ? state.user[USER_URL_FIELD]
-            : "",
+    authenticatedUser: getAuthenticatedUser(state)
 });
 
 const mapDispatchToProps = (dispatch) => {

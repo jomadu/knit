@@ -34,8 +34,7 @@ const DropdownMenu = (props) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
         }
-
-        setTimeout(setOpen, delay, false);
+        setOpen(false);
     };
 
     function handleListKeyDown(event) {

@@ -1,19 +1,19 @@
 import {pick} from "lodash";
-import {USER_PK_FIELD, USERNAME_FIELD, LOCAL_STORAGE_ITEMS, REQUIRED_FIELDS} from "../constants";
+import {USER_FIELDS, LOCAL_STORAGE_ITEMS} from "../constants";
 import {merge} from "lodash";
 
 export const signInUpSuccessReducer = (state, action) => {
     const { access, refresh } = action.payload;
-    const username = action.payload[USERNAME_FIELD];
-    const pk = action.payload[USER_PK_FIELD];
-    const requiredFields = pick(action.payload, REQUIRED_FIELDS);
+    const authUsername = action.payload[USER_FIELDS.AUTH_USERNAME];
+    const pk = action.payload[USER_FIELDS.PK];
+    const requiredFields = pick(action.payload, USER_FIELDS.REQUIRED);
     localStorage.setItem(LOCAL_STORAGE_ITEMS.JWT.ACCESS, access);
     localStorage.setItem(LOCAL_STORAGE_ITEMS.JWT.REFRESH, refresh);
     return merge({}, state, {
         jwt: { access, refresh },
         user: {
-            [USERNAME_FIELD]: username,
-            [USER_PK_FIELD]: pk,
+            [USER_FIELDS.AUTH_USERNAME]: authUsername,
+            [USER_FIELDS.PK]: pk,
             ...requiredFields,
         },
     });
@@ -22,15 +22,15 @@ export const signInUpSuccessReducer = (state, action) => {
 export const signInUpSuccessPrepare = (
     access,
     refresh,
-    username,
+    authUsername,
     pk,
     requiredFields
 ) => ({
     payload: {
         access,
         refresh,
-        [USERNAME_FIELD]: username,
-        [USER_PK_FIELD]: pk,
+        [USER_FIELDS.AUTH_USERNAME]: authUsername,
+        [USER_FIELDS.PK]: pk,
         ...requiredFields,
     },
 });

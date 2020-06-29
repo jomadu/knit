@@ -1,12 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Typography, Container } from "@material-ui/core";
-import SignInUpFormContainer from "../../auth/containers/SignInUpForm";
 
-const AnalyzeContainer = (props) => {
+const AccountContainer = (props) => {
     return (
         <Container>
-            <Typography variant="h1">Analyze</Typography>
+            <Typography variant="h1">{Account}</Typography>
             <Typography variant="subtitle1">
                 Fragments of time, instant crush oh yeah contact burnin' human
                 after all, veridis quo, digital love something about us too long
@@ -15,11 +14,10 @@ const AnalyzeContainer = (props) => {
                 crush, fresh one more time. Veridis quo, face to face, human
                 after all.
             </Typography>
-            <SignInUpFormContainer/>
         </Container>
     );
 };
 
 const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (state, actions) => ({});
-export default connect(mapStateToProps, mapDispatchToProps)(AnalyzeContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountContainer);
