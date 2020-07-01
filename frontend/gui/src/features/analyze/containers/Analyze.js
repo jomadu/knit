@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Typography, Container } from "@material-ui/core";
-import SignInUpFormContainer from "../../auth/containers/SignInUpForm";
+import { Typography, Grid, Container } from "@material-ui/core";
+import AuthFormContainer from "../../auth/containers/AuthForm";
+
 
 const AnalyzeContainer = (props) => {
     return (
@@ -15,7 +16,11 @@ const AnalyzeContainer = (props) => {
                 crush, fresh one more time. Veridis quo, face to face, human
                 after all.
             </Typography>
-            <SignInUpFormContainer/>
+            <Grid container justify="center">
+                <Grid item xs={12} sm={8} md={6}>
+                    <AuthFormContainer />
+                </Grid>
+            </Grid>
         </Container>
     );
 };

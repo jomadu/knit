@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
+import {Button, Container} from "@material-ui/core";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
@@ -13,9 +13,6 @@ https://github.com/mui-org/material-ui/issues/13394
 */
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        // display: "flex",
-    },
     paper: {
         marginRight: theme.spacing(2),
     },
@@ -55,52 +52,50 @@ const DropdownMenu = (props) => {
     }, [open]);
 
     return (
-        <div className={classes.root}>
-            <div>
-                <Button
-                    aria-controls={open ? "menu-list-grow" : undefined}
-                    aria-haspopup="true"
-                    onClick={handleToggle}
-                    color="inherit"
-                    startIcon={props.icon ? props.icon : null}
-                    ref={anchorRef}
-                >
-                    {props.title}
-                </Button>
-                <Popper
-                    open={open}
-                    anchorEl={anchorRef.current}
-                    role={undefined}
-                    transition
-                    disablePortal
-                >
-                    {({ TransitionProps, placement }) => (
-                        <Grow
-                            {...TransitionProps}
-                            style={{
-                                transformOrigin:
-                                    placement === "bottom"
-                                        ? "center top"
-                                        : "center bottom",
-                            }}
-                        >
-                            <Paper>
-                                <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList
-                                        autoFocusItem={open}
-                                        id="menu-list-grow"
-                                        onKeyDown={handleListKeyDown}
-                                        onClick={(e) => handleClose(e, 150)}
-                                    >
-                                        {props.children}
-                                    </MenuList>
-                                </ClickAwayListener>
-                            </Paper>
-                        </Grow>
-                    )}
-                </Popper>
-            </div>
-        </div>
+        <Container>
+            <Button
+                aria-controls={open ? "menu-list-grow" : undefined}
+                aria-haspopup="true"
+                onClick={handleToggle}
+                color="inherit"
+                startIcon={props.icon ? props.icon : null}
+                ref={anchorRef}
+            >
+                {props.title}
+            </Button>
+            <Popper
+                open={open}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                transition
+                disablePortal
+            >
+                {({ TransitionProps, placement }) => (
+                    <Grow
+                        {...TransitionProps}
+                        style={{
+                            transformOrigin:
+                                placement === "bottom"
+                                    ? "center top"
+                                    : "center bottom",
+                        }}
+                    >
+                        <Paper>
+                            <ClickAwayListener onClickAway={handleClose}>
+                                <MenuList
+                                    autoFocusItem={open}
+                                    id="menu-list-grow"
+                                    onKeyDown={handleListKeyDown}
+                                    onClick={(e) => handleClose(e, 150)}
+                                >
+                                    {props.children}
+                                </MenuList>
+                            </ClickAwayListener>
+                        </Paper>
+                    </Grow>
+                )}
+            </Popper>
+        </Container>
     );
 };
 

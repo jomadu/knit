@@ -33,7 +33,7 @@ import InfoRoundedIcon from "@material-ui/icons/InfoRounded";
 
 import {
     isAuthenticated,
-    getAuthenticatedUser,
+    getUserUsernameField,
 } from "../../features/auth/selectors";
 
 const useStyles = makeStyles((theme) => ({
@@ -75,11 +75,11 @@ const NavContainer = (props) => {
     };
 
     const drawerUserItems =
-        props.isAuthenticated && props.user ? (
+        props.isAuthenticated ? (
             <div>
                 <List
                     subheader={
-                        <ListSubheader>{props.user.username}</ListSubheader>
+                        <ListSubheader>{props.username}</ListSubheader>
                     }
                 >
                     <ListItem button>
@@ -102,7 +102,7 @@ const NavContainer = (props) => {
                         <ListItemText primary="History" />
                     </ListItem>
                     <Divider variant="middle" />
-                    <ListItem button>
+                    <ListItem button onClick={props.handleSignOut}>
                         <ListItemIcon>
                             <ExitToAppRoundedIcon />
                         </ListItemIcon>
@@ -154,7 +154,7 @@ const NavContainer = (props) => {
     );
 
     const rightLinks = props.isAuthenticated ? (
-        <DropdownMenu icon={<ArrowDropDownIcon />} title={props.user.username}>
+        <DropdownMenu icon={<ArrowDropDownIcon />} title={props.username}>
             <MenuItem>
                 <ListItemIcon>
                     <AccountCircleIcon />
@@ -241,7 +241,7 @@ const NavContainer = (props) => {
 
 const mapStateToProps = (state) => ({
     isAuthenticated: isAuthenticated(state),
-    user: getAuthenticatedUser(state),
+    username: getUserUsernameField(state),
 });
 const mapDispatchToProps = (dispatch) => {
     return {

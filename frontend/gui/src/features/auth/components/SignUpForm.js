@@ -4,7 +4,6 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
 
 import useForm from "../../../common/hooks/useForm";
 import useFormStyles from "../../../common/components/styles/index";
@@ -22,7 +21,6 @@ export const SignUpForm = ({ onSignUp, onSignIn }) => {
     const classes = useFormStyles();
 
     return (
-        <Container className={classes.paper}>
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
                 {/* Avoid Chrome autofill */}
                 <input autoComplete="email" name="email" style={{ display: "none" }}></input>
@@ -82,7 +80,7 @@ export const SignUpForm = ({ onSignUp, onSignIn }) => {
                         />
                     </Grid>
                 </Grid>
-                <Grid container justify="center" alignItems="center">
+                <Grid container justify="center" alignItems="baseline">
                     <Grid item xs={12} sm={8}>
                         <Button
                             type="submit"
@@ -111,7 +109,6 @@ export const SignUpForm = ({ onSignUp, onSignIn }) => {
                     </Grid>
                 </Grid>
             </form>
-        </Container>
     );
 };
 
