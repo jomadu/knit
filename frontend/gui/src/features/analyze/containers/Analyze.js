@@ -18,7 +18,7 @@ const AnalyzeContainer = (props) => {
             </Typography>
             <Grid container justify="center">
                 <Grid item xs={12} sm={8} md={6}>
-                    <AuthFormContainer />
+                    <AuthFormContainer avatar={false}/>
                 </Grid>
             </Grid>
         </Container>

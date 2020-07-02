@@ -42,6 +42,7 @@ export const backend = {
 export const frontend = {
     welcome: "/",
     about:"/about",
+    signIn: "/signin",
     analyze: "/analyze",
     userAccount: "/u/:username",
     userProgress: "/u/:username/progress",

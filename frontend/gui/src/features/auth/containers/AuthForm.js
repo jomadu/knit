@@ -15,13 +15,16 @@ import {
 } from "../selectors";
 
 const AuthFormContainer = (props) => {
-    let [currentForm, setCurrentForm] = useState("signIn");
+    let [currentForm, setCurrentForm] = useState(props.initialForm ? props.initialForm : "signIn");
+
+    const { avatar = true } = props
 
     let signInUpform;
     switch (currentForm) {
         case "signIn":
             signInUpform = (
                 <SignInForm
+                    avatar={avatar}
                     onSignIn={props.handleSignIn}
                     onSignUp={() => setCurrentForm("signUp")}
                 />
@@ -30,6 +33,7 @@ const AuthFormContainer = (props) => {
         case "signUp":
             signInUpform = (
                 <SignUpForm
+                    avatar={avatar}
                     onSignUp={props.handleSignUp}
                     onSignIn={() => setCurrentForm("signIn")}
                 />
