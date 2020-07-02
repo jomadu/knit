@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
@@ -35,6 +36,8 @@ import {
     isAuthenticated,
     getUserUsernameField,
 } from "../../features/auth/selectors";
+
+import { frontend } from "../../common/urls";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -74,54 +77,49 @@ const NavContainer = (props) => {
         setDrawerOpen(!drawerOpen);
     };
 
-    const drawerUserItems =
-        props.isAuthenticated ? (
-            <div>
-                <List
-                    subheader={
-                        <ListSubheader>{props.username}</ListSubheader>
-                    }
-                >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <AccountCircleIcon />
-                        </ListItemIcon>
+    const drawerUserItems = props.isAuthenticated ? (
+        <div>
+            <List subheader={<ListSubheader>{props.username}</ListSubheader>}>
+                <ListItem button>
+                    <ListItemIcon>
+                        <AccountCircleIcon />
+                    </ListItemIcon>
 
-                        <ListItemText primary="Account" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <TrendingUpRoundedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Progression" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <HistoryRoundedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="History" />
-                    </ListItem>
-                    <Divider variant="middle" />
-                    <ListItem button onClick={props.handleSignOut}>
-                        <ListItemIcon>
-                            <ExitToAppRoundedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Sign Out" />
-                    </ListItem>
-                </List>
-            </div>
-        ) : (
-            <div>
-                <List>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <ExitToAppRoundedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Sign In" />
-                    </ListItem>
-                </List>
-            </div>
-        );
+                    <ListItemText primary="Account" />
+                </ListItem>
+                <ListItem button>
+                    <ListItemIcon>
+                        <TrendingUpRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Progression" />
+                </ListItem>
+                <ListItem button>
+                    <ListItemIcon>
+                        <HistoryRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="History" />
+                </ListItem>
+                <Divider variant="middle" />
+                <ListItem button onClick={props.handleSignOut}>
+                    <ListItemIcon>
+                        <ExitToAppRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Sign Out" />
+                </ListItem>
+            </List>
+        </div>
+    ) : (
+        <div>
+            <List>
+                <ListItem button component={Link} to={frontend.signIn}>
+                    <ListItemIcon>
+                        <ExitToAppRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Sign In" />
+                </ListItem>
+            </List>
+        </div>
+    );
 
     const drawer = (
         <Drawer
@@ -135,13 +133,13 @@ const NavContainer = (props) => {
             </Typography>
             <Divider />
             <List>
-                <ListItem button>
+                <ListItem button component={Link} to={frontend.analyze}>
                     <ListItemIcon>
                         <DirectionsRunRoundedIcon />
                     </ListItemIcon>
                     <ListItemText primary="Analyze" />
                 </ListItem>
-                <ListItem button>
+                <ListItem button component={Link} to={frontend.about}>
                     <ListItemIcon>
                         <InfoRoundedIcon />
                     </ListItemIcon>
@@ -182,7 +180,7 @@ const NavContainer = (props) => {
             </MenuItem>
         </DropdownMenu>
     ) : (
-        <Button color="inherit" startIcon={<ExitToAppRoundedIcon />}>
+        <Button color="inherit" startIcon={<ExitToAppRoundedIcon />} component={Link} to={frontend.signIn}>
             Sign In
         </Button>
     );
@@ -221,10 +219,22 @@ const NavContainer = (props) => {
                         <Grid item className={classes.centerLinks}>
                             <Grid container>
                                 <Grid item>
-                                    <Button color="inherit">Analyze</Button>
+                                    <Button
+                                        color="inherit"
+                                        component={Link}
+                                        to={frontend.analyze}
+                                    >
+                                        Analyze
+                                    </Button>
                                 </Grid>
                                 <Grid item>
-                                    <Button color="inherit">About</Button>
+                                    <Button
+                                        color="inherit"
+                                        component={Link}
+                                        to={frontend.about}
+                                    >
+                                        About
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </Grid>
