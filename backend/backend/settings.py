@@ -50,7 +50,8 @@ INSTALLED_APPS = [
 
     # Knit-ML apps
     'api',
-    'user'
+    'user',
+    'report'
 ]
 
 MIDDLEWARE = [

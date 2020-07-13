@@ -6,7 +6,7 @@ import About from "./components/About";
 import AnalyzeContainer from "../features/analyze/containers/Analyze";
 import Auth from "../features/auth/components/Auth";
 import AccountContainer from "../features/account/containers/Account";
-import HistoryContainer from "../features/account/containers/History";
+import ReportContainer from "../features/report/containers/Report";
 
 const RootRouter = () => {
     return (
@@ -16,7 +16,7 @@ const RootRouter = () => {
             <Route exact path={frontend.analyze} component={AnalyzeContainer} />
             <Route exact path={frontend.signIn} component={Auth} />
             <Route exact path={frontend.userAccount} component={AccountContainer} />
-            {/* <Route exact path={frontend.userHistory} component={HistoryContainer}/> */}
+            <Route exact path={frontend.test} component={ReportContainer}/>
         </Switch>
     );
 };
