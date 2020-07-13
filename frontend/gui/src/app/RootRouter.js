@@ -3,17 +3,20 @@ import { Route, Switch } from "react-router-dom";
 import { frontend } from "../common/urls";
 import Welcome from "./components/Welcome";
 import About from "./components/About";
-import Analyze from "../features/analyze/containers/Analyze";
+import AnalyzeContainer from "../features/analyze/containers/Analyze";
 import Auth from "../features/auth/components/Auth";
+import AccountContainer from "../features/account/containers/Account";
+import HistoryContainer from "../features/account/containers/History";
 
 const RootRouter = () => {
     return (
         <Switch>
             <Route exact path={frontend.welcome} component={Welcome} />
             <Route exact path={frontend.about} component={About} />
-            <Route exact path={frontend.analyze} component={Analyze} />
+            <Route exact path={frontend.analyze} component={AnalyzeContainer} />
             <Route exact path={frontend.signIn} component={Auth} />
-            {/* <Route exact path={frontend.userAccount} component={Account} /> */}
+            <Route exact path={frontend.userAccount} component={AccountContainer} />
+            {/* <Route exact path={frontend.userHistory} component={HistoryContainer}/> */}
         </Switch>
     );
 };
