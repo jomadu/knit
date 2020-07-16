@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { Typography, Container } from "@material-ui/core";
 
-const Welcome: FunctionComponent = () => {
+const Welcome: React.FC = () => {
     return (
         <Container>
             <Typography variant="h1">Welcome!</Typography>

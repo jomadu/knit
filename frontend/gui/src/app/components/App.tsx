@@ -5,13 +5,11 @@ import Layout from "./Layout";
 
 const App = () => {
     return (
-        <div className="App">
-            <BrowserRouter>
-                <Layout>
-                    <RootRouter />
-                </Layout>
-            </BrowserRouter>
-        </div>
+        <BrowserRouter>
+            <Layout>
+                <RootRouter />
+            </Layout>
+        </BrowserRouter>
     );
 };
 

@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from "react";
+import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import NavContainer from "../containers/Nav";
 
@@ -10,13 +10,13 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const Layout: FunctionComponent = (props) => {
+const Layout: React.FC = ({ children }) => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <NavContainer />
-            <main>{props.children}</main>
+            <main>{children}</main>
         </div>
     );
 };
