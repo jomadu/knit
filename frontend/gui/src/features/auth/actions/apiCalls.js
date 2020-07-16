@@ -1,10 +1,10 @@
-import {USER_FIELDS} from "../constants";
-import {backend} from "../../../common/urls";
+import { USER_FIELDS } from "../constants";
+import { backend, addBackendURL } from "../../../common/urls";
 import axios from "axios";
 
 export const postToJWTCreate = (authUsername, password) => {
     return axios
-        .post(backend.djoser.jwtCreate, {
+        .post(addBackendURL(backend.djoser.jwtCreate), {
             [USER_FIELDS.AUTH_USERNAME]: authUsername,
             password: password,
         })
@@ -12,7 +12,7 @@ export const postToJWTCreate = (authUsername, password) => {
 };
 export const getFromUser = (access) => {
     return axios
-        .get(backend.djoser.user, {
+        .get(addBackendURL(backend.djoser.user), {
             headers: {
                 Authorization: "Bearer " + access,
             },
@@ -27,7 +27,7 @@ export const postToUserCreate = (
     rePassword
 ) => {
     return axios
-        .post(backend.djoser.userCreate, {
+        .post(addBackendURL(backend.djoser.userCreate), {
             [USER_FIELDS.AUTH_USERNAME]: authUsername,
             ...requiredFields,
             password: password,

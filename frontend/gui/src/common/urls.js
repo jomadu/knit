@@ -1,7 +1,7 @@
 import {USER_FIELDS} from "../features/auth/constants";
 
 
-const BACKEND_URL = "http://127.0.0.1:8000";
+export const BACKEND_URL = "http://127.0.0.1:8000";
 const AUTH_URL = "auth";
 const API_URL = "api/v1";
 
@@ -23,16 +23,21 @@ let djoser = {
 };
 
 for (let endpoint in djoser) {
-    djoser[endpoint] = BACKEND_URL + "/" + AUTH_URL + djoser[endpoint];
+    // djoser[endpoint] = BACKEND_URL + "/" + AUTH_URL + djoser[endpoint];
+    djoser[endpoint] = AUTH_URL + djoser[endpoint];
 }
 
 let api = {
-    images: "/images/",
+    reports: "/reports/",
+    reportDetail: "/reports/:pk"
 };
 
 for (let endpoint in api) {
-    api[endpoint] = BACKEND_URL + "/" + API_URL + api[endpoint];
+    // api[endpoint] = BACKEND_URL + "/" + API_URL + api[endpoint];
+    api[endpoint] = API_URL + api[endpoint];
 }
+
+export const addBackendURL = (suffix) => BACKEND_URL + "/" + suffix;
 
 export const backend = {
     djoser,
