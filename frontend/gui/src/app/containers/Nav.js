@@ -32,7 +32,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { appName } from "../constants";
 import DropdownMenu from "../../common/components/DropdownMenu";
 
-import { signOut, isAuthenticatedSelector, usernameSelector } from "../../features/auth/store/slice";
+import {
+    signOut,
+    isAuthenticatedSelector,
+    usernameSelector,
+} from "../../features/auth/store/slice";
 
 import { frontendURLs } from "../../common/constants";
 
@@ -70,7 +74,7 @@ const NavContainer = (props) => {
     const dispatch = useAppDispatch();
     const username = useSelector(usernameSelector);
     const isAuthenticated = useSelector(isAuthenticatedSelector);
-    
+
     const handleSignOut = () => dispatch(signOut());
 
     const classes = useStyles();
@@ -155,7 +159,7 @@ const NavContainer = (props) => {
 
     const rightLinks = isAuthenticated ? (
         <DropdownMenu icon={<ArrowDropDownIcon />} title={username}>
-            <MenuItem>
+            <MenuItem component={Link} to={"/u/maxdunn123"}>
                 <ListItemIcon>
                     <AccountCircleIcon />
                 </ListItemIcon>

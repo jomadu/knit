@@ -106,8 +106,8 @@ const SignUpForm: React.FC<Props> = ({ onSignIn, onSignUp }) => {
             </label>
             <br />
             <br />
-            <input type="submit" value="Sign In" />
-            <input type="button" onClick={handleSignIn} value="Sign Up" />
+            <input type="submit" value="Sign Up" />
+            <input type="button" onClick={handleSignIn} value="Sign In" />
         </form>
     );
 };
