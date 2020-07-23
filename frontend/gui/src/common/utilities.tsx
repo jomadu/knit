@@ -1,8 +1,8 @@
-import {ICommunicationAction, CommunicationState} from "./constants";
+import {CommunicationAction, CommunicationState} from "./constants";
 
 export const updateCommunicationState = (
   state: CommunicationState,
-  action: ICommunicationAction
+  action: CommunicationAction
 ) => {
   const index = state.findIndex(({ type }) => type === action.type);
   if (index >= 0) {

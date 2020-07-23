@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
-import accountReducer from "../features/account2/store/slice";
+import authReducer from "../features/auth/store/slice";
+import {featureName as authFeatureName} from "../features/auth/constants";
 
-const rootReducer = combineReducers({ account: accountReducer });
+const rootReducer = combineReducers({ [authFeatureName]: authReducer });
 export default rootReducer;
 export type RootState = ReturnType<typeof rootReducer>
 

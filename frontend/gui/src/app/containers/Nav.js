@@ -32,7 +32,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { appName } from "../constants";
 import DropdownMenu from "../../common/components/DropdownMenu";
 
-import { signOut, isAuthenticatedSelector, usernameSelector } from "../../features/account2/store/slice";
+import { signOut, isAuthenticatedSelector, usernameSelector } from "../../features/auth/store/slice";
 
 import { frontendURLs } from "../../common/constants";
 

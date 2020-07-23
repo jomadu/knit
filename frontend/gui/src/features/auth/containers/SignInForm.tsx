@@ -1,13 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { StaticContext } from "react-router";
 import { useHistory, useLocation, RouteComponentProps, Redirect, withRouter } from "react-router-dom";
 import { useAppDispatch } from "../../../app/store";
 import { signIn, isAuthenticatedSelector } from "../store/slice";
 import SignInForm from "../components/SignInForm";
-import { frontendURLs } from "../../../common/constants";
+import { frontendURLs, LocationState } from "../../../common/constants";
 
-const SignInFormContainer: React.FC<ISignInFormContainerProps> = ({ redirect = null }) => {
+const SignInFormContainer: React.FC<SignInFormContainerProps> = ({ redirect = null }) => {
     const dispatch = useAppDispatch();
     let history = useHistory();
     let location = useLocation<LocationState>();
@@ -34,13 +33,7 @@ const SignInFormContainer: React.FC<ISignInFormContainerProps> = ({ redirect = n
     }
 };
 
-type LocationState = {
-    from: {
-      pathname: string;
-    };
-};
-
-export interface ISignInFormContainerProps extends RouteComponentProps<{}> {
+export interface SignInFormContainerProps extends RouteComponentProps {
     redirect?: string;
 }
 

@@ -1,24 +1,43 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import {
+    persistStore,
+    persistReducer,
+    createMigrate,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { useDispatch } from "react-redux";
 import thunk from "redux-thunk";
-import { throttle } from "lodash";
-import { composeWithDevTools } from "redux-devtools-extension";
-
-import { loadState, saveState } from "./localStorage";
 
 import rootReducer from "./rootReducer";
 
-const persistedState = loadState();
+import migrations from "./migrations";
+import { featureName as auth } from "../features/auth/constants";
+
+const persistConfig = {
+    key: "root",
+    storage,
+    whitelist: [auth],
+    migrations: createMigrate(migrations, { debug: false }),
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-    reducer: rootReducer,
-    middleware: getDefaultMiddleware().concat(thunk),
-    preloadedState: persistedState,
+    reducer: persistedReducer,
+    middleware: getDefaultMiddleware({
+        serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+    }).concat(thunk),
 });
 
-store.subscribe(throttle(() => {
-    saveState(store.getState());
-  }, 1000));
+export const persistor = persistStore(store);
 
 export default store;
 export type AppDispatch = typeof store.dispatch;

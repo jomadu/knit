@@ -1,4 +1,4 @@
-import {USER_FIELDS} from "../features/auth/constants";
+import {USER_FIELDS} from "../features/authOld/constants";
 
 
 export const BACKEND_URL = "http://127.0.0.1:8000";

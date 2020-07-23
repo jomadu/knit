@@ -1,4 +1,4 @@
-export const featureName = "account";
+export const featureName = "auth";
 
 export const userFields = {
     authUsername: "email",
@@ -7,7 +7,7 @@ export const userFields = {
     id: "id",
 };
 
-export const accountEndpoints = {
+export const backendEndpoints = {
     userCreate: `/auth/users/`,
     userActivate: `/auth/users/activation/`,
     userResendActivationEmail: `/auth/users/resend_activation/`,

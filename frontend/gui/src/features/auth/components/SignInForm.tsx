@@ -25,6 +25,17 @@ const SignInForm: React.FC<Props> = ({ onSignIn, onSignUp }) => {
 
     return (
         <form onSubmit={handleSubmit}>
+            {/* Avoid Chrome autofill */}
+            <input
+                autoComplete="email"
+                name="email"
+                style={{ display: "none" }}
+            ></input>
+            <input
+                autoComplete="current-password"
+                name="password"
+                style={{ display: "none" }}
+            ></input>
             <label>
                 Email:
                 <input

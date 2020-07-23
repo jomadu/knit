@@ -2,11 +2,11 @@ import React from "react";
 import { useAppDispatch } from "../../../app/store";
 import { signUp } from "../store/slice";
 import SignUpForm from "../components/SignUpForm";
-import { useHistory, RouteComponentProps } from "react-router-dom";
+import { useHistory, RouteComponentProps, withRouter } from "react-router-dom";
 import { frontendURLs } from "../../../common/constants";
 
 
-const SignUpFormContainer: React.FC<RouteComponentProps> = () => {
+const SignUpFormContainer: React.FC<SignUpFormContainerProps> = () => {
     const dispatch = useAppDispatch();
     let history = useHistory();
 
@@ -18,4 +18,6 @@ const SignUpFormContainer: React.FC<RouteComponentProps> = () => {
     return <SignUpForm onSignUp={handleSignUp} onSignIn={handleSignIn}/>
 }
 
-export default SignUpFormContainer;
+export interface SignUpFormContainerProps extends RouteComponentProps {};
+
+export default withRouter(SignUpFormContainer);

@@ -1,7 +1,7 @@
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { updateCommunicationState } from "../../../common/utilities";
 import {
-    IFeatureStateBase,
+    FeatureStateBase,
     featureInitalStateBase,
     CommunicationActionStatus,
 } from "../../../common/constants";
@@ -98,7 +98,7 @@ interface AccountSessionState {
         };
     };
 }
-interface AccountState extends IFeatureStateBase {
+interface AccountState extends FeatureStateBase {
     session: AccountSessionState;
 }
 

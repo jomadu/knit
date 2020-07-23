@@ -5,21 +5,13 @@ import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import MenuList from "@material-ui/core/MenuList";
-import { makeStyles } from "@material-ui/core/styles";
 
 /*
 Note: Warnings in Strict Mode for React v4. See open ticket 
 https://github.com/mui-org/material-ui/issues/13394
 */
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginRight: theme.spacing(2),
-    },
-}));
-
 const DropdownMenu = (props) => {
-    const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
 

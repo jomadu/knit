@@ -1,25 +1,23 @@
 import React from "react";
-import { RouteComponentProps} from "react-router";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { frontendURLs } from "../common/constants";
-import AuthRoute from "../features/account2/AuthRoute";
 import Welcome from "./components/Welcome";
 import About from "./components/About";
-import AnalyzeContainer from "../features/analyze/containers/Analyze";
-import SignInFormContainer, {ISignInFormContainerProps} from "../features/account2/containers/SignInForm";
-import SignUpFormContainer from "../features/account2/containers/SignUpForm";
+import SignInFormContainer from "../features/auth/containers/SignInForm";
+import SignUpFormContainer from "../features/auth/containers/SignUpForm";
+import AuthRoute from "../features/auth/AuthRoute";
+import AccountContainer from "../features/account/containers/Account";
 
 const RootRouter = () => {
     return (
         <Switch>
             <Route exact path={frontendURLs.welcome} component={Welcome} />
             <Route exact path={frontendURLs.about} component={About} />
-            <Route
+            <AuthRoute
                 exact
-                path={frontendURLs.analyze}
-                component={AnalyzeContainer}
+                path={frontendURLs.userAccount}
+                component={AccountContainer}
             />
-            <Route exact path={frontendURLs.test} render={() => <SignInFormContainer/>}/>
             <Route
                 exact
                 path={frontendURLs.signIn}
@@ -30,7 +28,11 @@ const RootRouter = () => {
                 path={frontendURLs.signUp}
                 component={SignUpFormContainer}
             />
-            <AuthRoute exact path={"/protected"} render={() => <h1>Protected Page!</h1>} />
+            <Route
+                exact
+                path={frontendURLs.test}
+                render={() => <SignInFormContainer />}
+            />
         </Switch>
     );
 };

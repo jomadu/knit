@@ -2,7 +2,12 @@ import React, { MouseEvent } from "react";
 import { useForm } from "../../../common/hooks/useForm";
 
 interface Props {
-    onSignUp: (authUsername: string, username: string, password: string, rePassword: string) => void;
+    onSignUp: (
+        authUsername: string,
+        username: string,
+        password: string,
+        rePassword: string
+    ) => void;
     onSignIn: (event?: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -22,13 +27,40 @@ const SignUpForm: React.FC<Props> = ({ onSignIn, onSignUp }) => {
     };
     const { handleChange, handleSubmit, values } = useForm<FormState>(
         initialFormState,
-        () => onSignUp(values.authUsername, values.username, values.password, values.rePassword)
+        () =>
+            onSignUp(
+                values.authUsername,
+                values.username,
+                values.password,
+                values.rePassword
+            )
     );
 
     const handleSignIn = () => onSignIn();
 
     return (
         <form onSubmit={handleSubmit}>
+            {/* Avoid Chrome autofill */}
+            <input
+                autoComplete="email"
+                name="email"
+                style={{ display: "none" }}
+            ></input>
+            <input
+                autoComplete="username"
+                name="username"
+                style={{ display: "none" }}
+            ></input>
+            <input
+                autoComplete="new-password"
+                name="password"
+                style={{ display: "none" }}
+            ></input>
+            <input
+                autoComplete="new-password"
+                name="re-password"
+                style={{ display: "none" }}
+            ></input>
             <label>
                 Email:
                 <input

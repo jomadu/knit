@@ -1,13 +1,13 @@
 import axios from "axios";
 
 import { backendBaseURL } from "../../../common/constants";
-import { userFields, accountEndpoints } from "../constants";
+import { userFields, backendEndpoints } from "../constants";
 
 export const postToJWTCreate = (authUsername: string, password: string) => {
-    console.log(backendBaseURL, accountEndpoints.jwtCreate);
+    console.log(backendBaseURL, backendEndpoints.jwtCreate);
     return axios
         .post(
-            accountEndpoints.jwtCreate,
+            backendEndpoints.jwtCreate,
             {
                 [userFields.authUsername]: authUsername,
                 password: password,
@@ -18,7 +18,7 @@ export const postToJWTCreate = (authUsername: string, password: string) => {
 };
 export const getFromUser = (access: string) => {
     return axios
-        .get(accountEndpoints.user, {
+        .get(backendEndpoints.user, {
             baseURL: backendBaseURL,
             headers: {
                 Authorization: "Bearer " + access,
@@ -35,7 +35,7 @@ export const postToUserCreate = (
 ) => {
     return axios
         .post(
-            accountEndpoints.userCreate,
+            backendEndpoints.userCreate,
             {
                 [userFields.authUsername]: authUsername,
                 [userFields.username]: username,
