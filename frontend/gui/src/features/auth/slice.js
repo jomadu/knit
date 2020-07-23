@@ -1,5 +1,5 @@
 import ReduxSagaSlice from "../../common/ReduxSagaSlice";
-import { APP_NAME } from "../../app/constants";
+import { appName } from "../../app/constants";
 import { FEATURE_NAME } from "./constants";
 import {
     signInUpSuccessPrepare,
@@ -19,7 +19,7 @@ import {
 } from "./actions/signUp";
 import { SIGN_OUT, signOutRequestReducer } from "./actions/signOut";
 
-let authReduxSagaSlice = new ReduxSagaSlice(APP_NAME, FEATURE_NAME);
+let authReduxSagaSlice = new ReduxSagaSlice(appName, FEATURE_NAME);
 
 // SIGN_IN
 authReduxSagaSlice.addAsyncAction(

@@ -1,43 +1,40 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../store";
+
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import MenuIcon from "@material-ui/icons/Menu";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import { APP_NAME } from "../constants";
-import DropdownMenu from "../../common/components/DropdownMenu";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 
-import { actions as authActions } from "../../features/auth/slice";
-import { SIGN_OUT } from "../../features/auth/actions/signOut";
-
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
+import MenuIcon from "@material-ui/icons/Menu";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HistoryRoundedIcon from "@material-ui/icons/HistoryRounded";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import TrendingUpRoundedIcon from "@material-ui/icons/TrendingUpRounded";
 import DirectionsRunRoundedIcon from "@material-ui/icons/DirectionsRunRounded";
 import InfoRoundedIcon from "@material-ui/icons/InfoRounded";
 
-import {
-    isAuthenticated,
-    getUserUsernameField,
-} from "../../features/auth/selectors";
+import { makeStyles } from "@material-ui/core/styles";
+import { appName } from "../constants";
+import DropdownMenu from "../../common/components/DropdownMenu";
 
-import { frontend } from "../../common/urls";
+import { signOut, isAuthenticatedSelector, usernameSelector } from "../../features/account2/store/slice";
+
+import { frontendURLs } from "../../common/constants";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -70,6 +67,11 @@ const useStyles = makeStyles((theme) => ({
 
 const NavContainer = (props) => {
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const dispatch = useAppDispatch();
+    const username = useSelector(usernameSelector);
+    const isAuthenticated = useSelector(isAuthenticatedSelector);
+    
+    const handleSignOut = () => dispatch(signOut());
 
     const classes = useStyles();
 
@@ -77,9 +79,9 @@ const NavContainer = (props) => {
         setDrawerOpen(!drawerOpen);
     };
 
-    const drawerUserItems = props.isAuthenticated ? (
+    const drawerUserItems = isAuthenticated ? (
         <div>
-            <List subheader={<ListSubheader>{props.username}</ListSubheader>}>
+            <List subheader={<ListSubheader>{username}</ListSubheader>}>
                 <ListItem button>
                     <ListItemIcon>
                         <AccountCircleIcon />
@@ -100,7 +102,7 @@ const NavContainer = (props) => {
                     <ListItemText primary="History" />
                 </ListItem>
                 <Divider variant="middle" />
-                <ListItem button onClick={props.handleSignOut}>
+                <ListItem button onClick={handleSignOut}>
                     <ListItemIcon>
                         <ExitToAppRoundedIcon />
                     </ListItemIcon>
@@ -111,7 +113,7 @@ const NavContainer = (props) => {
     ) : (
         <div>
             <List>
-                <ListItem button component={Link} to={frontend.signIn}>
+                <ListItem button component={Link} to={frontendURLs.signIn}>
                     <ListItemIcon>
                         <ExitToAppRoundedIcon />
                     </ListItemIcon>
@@ -129,17 +131,17 @@ const NavContainer = (props) => {
             className={classes.drawer}
         >
             <Typography variant="h4" className={classes.drawerTitle}>
-                {APP_NAME}
+                {appName}
             </Typography>
             <Divider />
             <List>
-                <ListItem button component={Link} to={frontend.analyze}>
+                <ListItem button component={Link} to={frontendURLs.analyze}>
                     <ListItemIcon>
                         <DirectionsRunRoundedIcon />
                     </ListItemIcon>
                     <ListItemText primary="Analyze" />
                 </ListItem>
-                <ListItem button component={Link} to={frontend.about}>
+                <ListItem button component={Link} to={frontendURLs.about}>
                     <ListItemIcon>
                         <InfoRoundedIcon />
                     </ListItemIcon>
@@ -151,8 +153,8 @@ const NavContainer = (props) => {
         </Drawer>
     );
 
-    const rightLinks = props.isAuthenticated ? (
-        <DropdownMenu icon={<ArrowDropDownIcon />} title={props.username}>
+    const rightLinks = isAuthenticated ? (
+        <DropdownMenu icon={<ArrowDropDownIcon />} title={username}>
             <MenuItem>
                 <ListItemIcon>
                     <AccountCircleIcon />
@@ -172,7 +174,7 @@ const NavContainer = (props) => {
                 <Typography variant="inherit">History</Typography>
             </MenuItem>
             <Divider variant="middle" />
-            <MenuItem onClick={props.handleSignOut}>
+            <MenuItem onClick={handleSignOut}>
                 <ListItemIcon>
                     <ExitToAppRoundedIcon />
                 </ListItemIcon>
@@ -180,7 +182,12 @@ const NavContainer = (props) => {
             </MenuItem>
         </DropdownMenu>
     ) : (
-        <Button color="inherit" startIcon={<ExitToAppRoundedIcon />} component={Link} to={frontend.signIn}>
+        <Button
+            color="inherit"
+            startIcon={<ExitToAppRoundedIcon />}
+            component={Link}
+            to={frontendURLs.signIn}
+        >
             Sign In
         </Button>
     );
@@ -210,7 +217,7 @@ const NavContainer = (props) => {
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="h6">
-                                        {APP_NAME}
+                                        {appName}
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -222,7 +229,7 @@ const NavContainer = (props) => {
                                     <Button
                                         color="inherit"
                                         component={Link}
-                                        to={frontend.analyze}
+                                        to={frontendURLs.analyze}
                                     >
                                         Analyze
                                     </Button>
@@ -231,7 +238,7 @@ const NavContainer = (props) => {
                                     <Button
                                         color="inherit"
                                         component={Link}
-                                        to={frontend.about}
+                                        to={frontendURLs.about}
                                     >
                                         About
                                     </Button>
@@ -249,13 +256,4 @@ const NavContainer = (props) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    isAuthenticated: isAuthenticated(state),
-    username: getUserUsernameField(state),
-});
-const mapDispatchToProps = (dispatch) => {
-    return {
-        handleSignOut: () => dispatch(authActions[SIGN_OUT].SYNC()),
-    };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(NavContainer);
+export default NavContainer;

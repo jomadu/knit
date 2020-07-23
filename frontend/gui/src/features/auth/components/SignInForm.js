@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import LockIcon from "@material-ui/icons/Lock";
 
-import useForm from "../../../common/hooks/useForm";
+import {useForm} from "../../../common/hooks/useForm";
 import useFormStyles from "../../../common/components/styles/index";
 
 export const SignInForm = ({ avatar = true, onSignIn, onSignUp }) => {

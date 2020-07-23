@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { Avatar } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
-import useForm from "../../../common/hooks/useForm";
+import {useForm} from "../../../common/hooks/useForm";
 import useFormStyles from "../../../common/components/styles/index";
 
 import PersonAddIcon from "@material-ui/icons/PersonAdd";

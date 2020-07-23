@@ -1,5 +1,5 @@
 import ReduxSagaSlice from "../../common/ReduxSagaSlice";
-import { APP_NAME } from "../../app/constants";
+import { appName } from "../../app/constants";
 import { FEATURE_NAME } from "./constants";
 
 import {
@@ -10,7 +10,7 @@ import {
     getReportDetailSuccessReducer,
 } from "./actions/getReportDetail";
 
-let reportReduxSagaSlice = new ReduxSagaSlice(APP_NAME, FEATURE_NAME);
+let reportReduxSagaSlice = new ReduxSagaSlice(appName, FEATURE_NAME);
 
 // GET_REPORT_DETAIL
 reportReduxSagaSlice.addAsyncAction(

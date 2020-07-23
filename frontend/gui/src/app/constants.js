@@ -1,1 +1,1 @@
-export const APP_NAME = "Knit";
+export const appName = "Knit";
