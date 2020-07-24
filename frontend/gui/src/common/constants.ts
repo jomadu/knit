@@ -42,6 +42,7 @@ export const frontendURLs = {
     signUp: "/signup",
     signOut: "/signout",
     analyze: "/analyze",
+    report: "/report/:id",
     test: "/test",
     userAccount: "/u/:username",
     userProgress: "/u/:username/progress",

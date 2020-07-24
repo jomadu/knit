@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store";
+import { reverse } from "named-urls";
 
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
@@ -86,20 +87,39 @@ const NavContainer = (props) => {
     const drawerUserItems = isAuthenticated ? (
         <div>
             <List subheader={<ListSubheader>{username}</ListSubheader>}>
-                <ListItem button>
+                <ListItem
+                    button
+                    component={Link}
+                    to={reverse(frontendURLs.userAccount, {
+                        username: username,
+                    })}
+                >
                     <ListItemIcon>
                         <AccountCircleIcon />
                     </ListItemIcon>
-
                     <ListItemText primary="Account" />
                 </ListItem>
-                <ListItem button>
+
+                <ListItem
+                    button
+                    component={Link}
+                    to={reverse(frontendURLs.userProgress, {
+                        username: username,
+                    })}
+                >
                     <ListItemIcon>
                         <TrendingUpRoundedIcon />
                     </ListItemIcon>
                     <ListItemText primary="Progression" />
                 </ListItem>
-                <ListItem button>
+
+                <ListItem
+                    button
+                    component={Link}
+                    to={reverse(frontendURLs.userHistory, {
+                        username: username,
+                    })}
+                >
                     <ListItemIcon>
                         <HistoryRoundedIcon />
                     </ListItemIcon>
@@ -159,19 +179,30 @@ const NavContainer = (props) => {
 
     const rightLinks = isAuthenticated ? (
         <DropdownMenu icon={<ArrowDropDownIcon />} title={username}>
-            <MenuItem component={Link} to={"/u/maxdunn123"}>
+            <MenuItem
+                component={Link}
+                to={reverse(frontendURLs.userAccount, {
+                    username: username,
+                })}
+            >
                 <ListItemIcon>
                     <AccountCircleIcon />
                 </ListItemIcon>
                 <Typography variant="inherit">Account</Typography>
             </MenuItem>
-            <MenuItem>
+            <MenuItem component={Link}
+                to={reverse(frontendURLs.userProgress, {
+                    username: username,
+                })}>
                 <ListItemIcon>
                     <TrendingUpRoundedIcon />
                 </ListItemIcon>
                 <Typography variant="inherit">Progression</Typography>
             </MenuItem>
-            <MenuItem>
+            <MenuItem component={Link}
+                to={reverse(frontendURLs.userHistory, {
+                    username: username,
+                })}>
                 <ListItemIcon>
                     <HistoryRoundedIcon />
                 </ListItemIcon>
