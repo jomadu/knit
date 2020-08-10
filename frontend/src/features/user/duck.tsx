@@ -8,6 +8,7 @@ import {
 } from "@reduxjs/toolkit";
 
 import { FeatureState, initialFeatureState, Status, Error } from "../constants";
+import { RootState } from "../../app/rootReducer";
 
 // --------
 // Constants
@@ -121,7 +122,12 @@ const initialUserState: UserState = Object.assign({}, initialFeatureState, {
 // --------
 // Selectors
 // --------
-const userSelector = (state: UserState) => state.session.user;
+
+export const userFeatureSelector = (state: RootState) => state.user;
+export const userSelector = createSelector(
+  userFeatureSelector,
+  (state: UserState) => state.session.user
+);
 export const userDataSelector = createSelector(
   userSelector,
   (user) => user?.data
@@ -148,7 +154,7 @@ export const userJWTSelector = createSelector(
 );
 export const isAuthenticatedSelector = createSelector(
   userJWTSelector,
-  (jwt) => jwt?.access && jwt?.refresh
+  (jwt) => typeof jwt !== "undefined"
 );
 
 // --------
@@ -190,7 +196,7 @@ const slice = createSlice({
   },
 });
 const { actions, reducer } = slice;
-// export const {/* myRegularAction*/ } = actions;
+export const { signOut } = actions;
 export default reducer;
 
 // --------

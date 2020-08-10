@@ -1,11 +1,12 @@
 import React from "react";
-import { Route, withRouter, RouteProps, Redirect } from "react-router";
+import { Route, RouteProps, Redirect } from "react-router";
 import { useSelector } from "react-redux";
 import { isAuthenticatedSelector } from "./duck";
 import { Routes } from "../../app/constants";
 
 const AuthRoute = ({ children, ...rest }: RouteProps) => {
   const isAuthenticated = useSelector(isAuthenticatedSelector);
+  console.log("isAuthenticated:", isAuthenticated);
   return (
     <Route
       {...rest}
@@ -25,4 +26,4 @@ const AuthRoute = ({ children, ...rest }: RouteProps) => {
   );
 };
 
-export default withRouter(AuthRoute);
+export default AuthRoute;

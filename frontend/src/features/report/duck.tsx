@@ -1,7 +1,7 @@
 // --------
 // Imports
 // --------
-import axios from "axios";
+// import axios from "axios";
 import {
   createAsyncThunk,
   createSelector,
@@ -16,7 +16,7 @@ import {
   Status,
 } from "../constants";
 
-import { JWT, createAxiosAuthConfig } from "../user/duck";
+import { JWT } from "../user/duck";
 
 // --------
 // Constants
@@ -114,8 +114,7 @@ const slice = createSlice({
   },
 });
 
-const { actions, reducer } = slice;
-// export const {/* myRegularAction*/ } = actions;
+const { reducer } = slice;
 export default reducer;
 
 // --------
