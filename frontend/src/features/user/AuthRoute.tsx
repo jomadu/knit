@@ -6,7 +6,6 @@ import { Routes } from "../../app/constants";
 
 const AuthRoute = ({ children, ...rest }: RouteProps) => {
   const isAuthenticated = useSelector(isAuthenticatedSelector);
-  console.log("isAuthenticated:", isAuthenticated);
   return (
     <Route
       {...rest}
