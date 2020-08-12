@@ -1,12 +1,13 @@
 export const APP_NAME = "knit";
 
-export enum Routes {
-  root = "/",
-  welcome = "/welcome",
-  about = "/about",
-  signIn = "/signin",
-  signUp = "/signup",
-}
+export const Routes = {
+  root: "/",
+  welcome: "/welcome",
+  about: "/about",
+  signIn: "/signin",
+  signUp: "/signup",
+  account: "/u/:username",
+};
 
 export interface FromLocationState {
   state: {

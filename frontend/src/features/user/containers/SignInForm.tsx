@@ -13,7 +13,7 @@ import { Routes, isFromLocationState } from "../../../app/constants";
 import SignInForm from "../components/SignInForm";
 
 export interface SignInFormContainerProps extends RouteComponentProps {
-  redirect?: Routes;
+  redirect?: string;
 }
 
 export const SignInFormContainer = ({
