@@ -1,9 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { SignInProps } from "../duck";
+import { SignInArg } from "../duck";
 
 export interface SignInFormProps {
-  onSignIn: (props: SignInProps) => void;
+  onSignIn: (arg: SignInArg) => void;
   onSignUp: () => void;
 }
 

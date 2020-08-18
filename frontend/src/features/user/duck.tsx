@@ -41,17 +41,17 @@ const testUserData2: UserData = {
   },
 };
 
-export interface SignInProps {
+export interface SignInArg {
   authUsername: string;
   password: string;
 }
-export interface SignInResolution {
+export interface SignInRes {
   userData: UserData;
 }
 
-export const signIn = createAsyncThunk<SignInResolution, SignInProps>(
+export const signIn = createAsyncThunk<SignInRes, SignInArg>(
   `${USER}/signIn`,
-  async (props) => {
+  async (arg) => {
     return { userData: testUserData1 };
     //   return axios
     //     .get("endpoint", createAxiosAuthConfig(thunkApi.extra.jwt))
@@ -59,18 +59,18 @@ export const signIn = createAsyncThunk<SignInResolution, SignInProps>(
   }
 );
 
-export interface SignUpProps {
+export interface SignUpArg {
   authUsername: string;
   username: string;
   password: string;
   rePassword: string;
 }
-export interface SignUpResolution {
+export interface SignUpRes {
   userData: UserData;
 }
-export const signUp = createAsyncThunk<SignUpResolution, SignUpProps>(
+export const signUp = createAsyncThunk<SignUpRes, SignUpArg>(
   `${USER}/signUp`,
-  async (props) => {
+  async (arg) => {
     return { userData: testUserData2 };
   }
 );

@@ -7,7 +7,7 @@ import {
 } from "react-router";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { isAuthenticatedSelector, SignInProps, signIn } from "../duck";
+import { isAuthenticatedSelector, SignInArg, signIn } from "../duck";
 import { Routes, isFromLocationState } from "../../../app/constants";
 
 import SignInForm from "../components/SignInForm";
@@ -35,7 +35,7 @@ export const SignInFormContainer = ({
     }
   }, [redirect, isAuthenticated, history, location]);
 
-  const handleSignIn = (props: SignInProps) => dispatch(signIn(props));
+  const handleSignIn = (arg: SignInArg) => dispatch(signIn(arg));
   const handleSignUp = () => history.push(Routes.signUp);
 
   return <SignInForm onSignIn={handleSignIn} onSignUp={handleSignUp} />;

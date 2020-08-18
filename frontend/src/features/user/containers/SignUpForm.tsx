@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { withRouter, useHistory } from "react-router";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { isAuthenticatedSelector, SignUpProps, signUp } from "../duck";
+import { isAuthenticatedSelector, SignUpArg, signUp } from "../duck";
 import { Routes } from "../../../app/constants";
 
 import SignUpForm from "../components/SignUpForm";
@@ -23,7 +23,7 @@ export const SignUpFormContainer = () => {
     }
   }, [isAuthenticated, history]);
 
-  const handleSignUp = (props: SignUpProps) => dispatch(signUp(props));
+  const handleSignUp = (arg: SignUpArg) => dispatch(signUp(arg));
   const handleSignIn = () => history.push(Routes.signIn);
 
   return <SignUpForm onSignUp={handleSignUp} onSignIn={handleSignIn} />;
